@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="ca/favicon/logo.png" />
+
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color:black;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.hidden{
+    display:none;
+}
+.question {
+    margin-left:10%;
+    margin-top:8%;
+    background-color:skyblue;
+    
+    border-radius:10px;
+    border:none;
+    padding:4%;
+    margin-right:10%;
+    
+}
+input[type=radio] {
+    /* border: 0px;
+    width: 3%;
+    height: 2em; */
+    -ms-transform: scale(2); /* IE 9 */
+    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+    transform: scale(2);
+    margin-right: 1%;
+}
+
+.qindex
+{
+    text-align: justify;
+    margin-left:10%;
+    margin-right:10%;
+    margin-top:5%;
+}
+.qindex input[type=button]
+{
+    text-align: center;
+    padding:1% 2%;
+    border:none;
+    border-radius:5px;
+    width:6.00%;
+    color:black;
+    font-weight: bold;
+    /* background-color:grey; */
+    margin-left:.001%;
+    margin-right:.001%;
+    margin-bottom: 1%;
+}
+.qindex input[type=button]:hover{
+    background-color: black;
+    color:white;
+    
+    
+}
+
+.question input[type=button]:hover{
+    background-color: black;
+}
+.attempted
+{
+    background-color: green;
+}
+.main {
+  margin-left: 20%; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+</style>
+<script>
+    function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since 
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds; 
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            
+            document.getElementById("form").submit();
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 20,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+     {
+
+var clockElement = document.getElementById( "clock" );
+
+function updateClock ( clock ) {
+  clock.innerHTML = new Date().toLocaleTimeString();
+}
+
+setInterval(function () {
+    updateClock( clockElement );
+}, 1000);
+
+};
+};
+
+
+    function Jumptoq(event)
+    {
+        var qno = event.target.value;
+        for(var i = 0 ;i<50;i++)
+        {
+            document.getElementsByClassName("question")[i].classList.add("hidden")
+        }
+        document.getElementById(qno).classList.remove("hidden")
+    }
+    function next(event)
+    {
+     var qno =event.target.name;
+     for(var i = 0 ;i<50;i++)
+        {
+            document.getElementsByClassName("question")[i].classList.add("hidden")
+        }
+        document.getElementById(qno).classList.remove("hidden") 
+    }
+    function clears(event)
+    {
+        
+        
+        var qno=parseInt(event.target.name[2])
+        if (event.target.name.length>3)
+        qno=parseInt(event.target.name[2]+event.target.name[3])
+        for(var i =0 ; i<4 ;i++)
+        {
+            document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[qno-1].classList.remove("attempted");
+            document.getElementsByClassName("question")[qno-1].getElementsByTagName("input")[i].checked =false;
+        }
+    }
+    function attempt()
+    {
+        for (var i =0 ;i<50;i++)
+        {
+            var q = document.getElementsByClassName("question")[i];
+            console.log( document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[2])
+            for(var j =0 ;j<4;j ++)
+            {
+                if(q.getElementsByTagName("input")[j].checked === true)
+                {
+                    console.log(q.getElementsByTagName("input")[j].checked)
+                  document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[i].classList.add("attempted");  
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body>
+
+<div class="sidenav" style="color:white;">
+    <h1 style="text-align:center;">NOSSQ 2019</h1>
+    <span id="clock"></span><br>
+    <br><hr>
+    
+  <b style="margin-left:1%;font-size:75%;">Username : <%= user %> </b>
+  <br><hr>
+  <b style="margin-left:1%;font-size:75%;">Time Remaining : <span id="time"></span></b>
+  <br><hr>
+  <b style="margin-left:1%;font-size:75%;">Maximum Marks : 100 <span id="time"></span></b>
+  <br><hr>
+  <h2 style="margin-left:3%;">Instructions</h2>
+  
+        <ul style="font-size:100%;margin-right:1%">
+                <li style="text-align: left; color:red;font-weight: bold;">Do not Reload the page.On Reloading the page all your data will be lost and Udghosh will not be responsible for any such loss.</li>
+                <br>
+                <li>All your marked responses will be displayed as <input type=button style="width:10%;border:none;border-radius: 5px;background-color: green"> and unmarked responses as <input type=button style="width:10%;border:none;border-radius: 5px;"></li>
+                <br>
+              <li>The duration of the quiz is 20 minutes.</li><br>
+              <li>There are a total of 50 questions </li><br>
+              <li>All questions are compulsary and carry equal weightage.</li><br>
+              <li>All the questions are “One or more option correct" questions so be very careful while answering them</li><br>
+              
+              <li>MARKING SCHEME<br><br>
+                <b>Comprehension Type Questions</b><br><br>
+                <ul>
+                    <li>For every correct answer, you’ll be awarded +2 marks and for every wrong answer, 1 mark will be deducted.</li><br>
+                    <li>Read the paragraph carefully and try to answer questions after that</li><br>
+                </ul>
+                <b>Multiple option correct questions</b><br>
+                <br>
+                <ul>
+                    <li>For every correct answer, you’ll be awarded +2 marks and for every wrong answer, 1 mark will be deducted.</li><br>
+                    <li>Read the questions carefully and answer only if you know all the correct answers. Partially correct answers will be awarded with a negative mark </li>
+                </ul>
+                
+                
+                </li><br>
+              <li>Try to attempt maximum questions you can and Best of Luck!!!!</li><br>
+             
+                <br>
+                
+            </ul>
+</div>
+
+<div class="main">
+  <!-- <h1 style="margin-left: 45%;color:rgb(0, 26, 255)">NOSSQ 2019</h1> -->
+    <h3 style="text-align:center;color:black">Stage II - Intermediate Category</h3>
+    <h4 style="text-align:center;color:black">(Class 9th-10th)</h4>
+    <form method="POST" action="/c470c76sd3c5c286sdsfshu835d4a4sdcefb7" id="form" onchange="attempt()">
+        <input type="text" style= "display: none" name ="userid" value = <%=user %> 
+       <!-- Multiple choice questions   -->
+        <div class="question " id="Q.1">
+            <b>Q.1 When were the first Olympics held?</b><br><br>
+            <input type="checkbox" name="q1" value="A", style="height: 20px; width:20px;" >776 BC<br>
+            <input type="checkbox" name="q1" value="B", style="height: 20px; width:20px;">640 BC<br>
+            <input type="checkbox" name="q1" value="C", style="height: 20px; width:20px;">239 BC<br>
+            <input type="checkbox" name="q1" value="D", style="height: 20px; width:20px;"> 34 AD<br>
+            <input type="button" value="Next"  name ="Q.2" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.1" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.2">
+ <b>Q.2 Which Indian players have won Gold Medal in the Olympics?</b><br><br>
+            <input type="checkbox" name="q2" value="A", style="height: 20px; width:20px;" >Rajyavardhan Singh Rathore <br>
+            <input type="checkbox" name="q2" value="B", style="height: 20px; width:20px;">Karnam Malleshwari<br>
+            <input type="checkbox" name="q2" value="C", style="height: 20px; width:20px;">Abhinav Bindra<br>
+            <input type="checkbox" name="q2" value="D", style="height: 20px; width:20px;">M. M. Somaya<br>
+            <input type="button" value="Next"  name ="Q.3" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.2" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.3">
+ <b>Q.3 Which of the following captains have led their team to victory in Ranji Trophy Tournament? </b><br><br>
+            <input type="checkbox" name="q3" value="A", style="height: 20px; width:20px;" >Faiz Fazal<br>
+            <input type="checkbox" name="q3" value="B", style="height: 20px; width:20px;">Umesh Yadav<br>
+            <input type="checkbox" name="q3" value="C", style="height: 20px; width:20px;">Aditya Tare<br>
+            <input type="checkbox" name="q3" value="D", style="height: 20px; width:20px;">Surya Kumar Yadav<br>
+            <input type="button" value="Next"  name ="Q.4" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.3" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.4">
+ <b>Q.4 Under the framework of the new partnership with which country, Victory University will help India to Establish a National Sports University ? </b><br><br>
+            <input type="checkbox" name="q4" value="A", style="height: 20px; width:20px;" >Portugal<br>
+            <input type="checkbox" name="q4" value="B", style="height: 20px; width:20px;">Australia<br>
+            <input type="checkbox" name="q4" value="C", style="height: 20px; width:20px;">Vietnam<br>
+            <input type="checkbox" name="q4" value="D", style="height: 20px; width:20px;">USA<br>
+            <input type="button" value="Next"  name ="Q.5" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.4" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.5">
+<b>Q.5 Argentina's women’s basketball team were penalised with a 20-0 defeat in their match against Colombia at the Pan American Games this week even though they did not even make it onto the court. What happened? </b><br><br>
+            <input type="checkbox" name="q5" value="A", style="height: 20px; width:20px;" >They were caught trying to sneak a man (in a wig and make-up) into their team<br>
+            <input type="checkbox" name="q5" value="B", style="height: 20px; width:20px;">They turned up in the wrong kit and couldn't play<br>
+            <input type="checkbox" name="q5" value="C", style="height: 20px; width:20px;">They went to the wrong city<br>
+            <input type="checkbox" name="q5" value="D", style="height: 20px; width:20px;">They were caught wearing sneakers with extra thick soles<br>
+            <input type="button" value="Next"  name ="Q.6" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.5" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.6">
+            <b>Q.6 The England and Australia players are wearing numbers on the backs of their shirts at the Ashes for the first time. Which England player opted for No 66? </b><br><br>
+            <input type="checkbox" name="q6" value="A", style="height: 20px; width:20px;" >Ben Stokes<br>
+            <input type="checkbox" name="q6" value="B", style="height: 20px; width:20px;">Joe Root<br>
+            <input type="checkbox" name="q6" value="C", style="height: 20px; width:20px;">Jason Roy<br>
+            <input type="checkbox" name="q6" value="D", style="height: 20px; width:20px;"> JImmy Anderson<br>
+            <input type="button" value="Next"  name ="Q.7" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.6" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.7">
+            <b>Q.7 The National Sports Day is celebrated on which day? </b><br><br>
+            <input type="checkbox" name="q7" value="A", style="height: 20px; width:20px;" >29th September<br>
+            <input type="checkbox" name="q7" value="B", style="height: 20px; width:20px;">14th November<br>
+            <input type="checkbox" name="q7" value="C", style="height: 20px; width:20px;">29th August<br>
+            <input type="checkbox" name="q7" value="D", style="height: 20px; width:20px;">29th July<br>
+            <input type="button" value="Next"  name ="Q.8" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.7" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.8">
+            <b>Q.8 Ace Against Odds' is an autobiography of which sports person ? </b><br><br>
+            <input type="checkbox" name="q8" value="A", style="height: 20px; width:20px;" >Vishwanathan Anand <br>
+            <input type="checkbox" name="q8" value="B", style="height: 20px; width:20px;"> Sania Mirza <br>
+            <input type="checkbox" name="q8" value="C", style="height: 20px; width:20px;">Abhinav Bindra <br>
+            <input type="checkbox" name="q8" value="D", style="height: 20px; width:20px;"> Anjali Bhagwat<br>
+            <input type="button" value="Next"  name ="Q.9" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.8" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.9">
+            <b>Q.9 In what sport would one find an Albion round?</b><br><br>
+            <input type="checkbox" name="q9" value="A", style="height: 20px; width:20px;" >croquet<br>
+            <input type="checkbox" name="q9" value="B", style="height: 20px; width:20px;">Badminton<br>
+            <input type="checkbox" name="q9" value="C", style="height: 20px; width:20px;">Tennis<br>
+            <input type="checkbox" name="q9" value="D", style="height: 20px; width:20px;"> Archery<br>
+            <input type="button" value="Next"  name ="Q.10" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.9" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.10">
+            <b>Q.10 Why are thousands of football fans in South Korea seeking compensation from Juventus after the club played a friendly in Seoul this week? </b><br><br>
+            <input type="checkbox" name="q10" value="A", style="height: 20px; width:20px;"> Juventus did not wear their famous black and white kit<br>
+            
+            <input type="checkbox" name="q10" value="B", style="height: 20px; width:20px;"> Juventus lost 2-0 and did not play “at the level befitting champions"<br>
+            <input type="checkbox" name="q10" value="C", style="height: 20px; width:20px;">Cristiano Ronaldo did not feature in the game<br>
+            <input type="checkbox" name="q10" value="D", style="height: 20px; width:20px;" >
+            None of the above <br>
+            <input type="button" value="Next"  name ="Q.11" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.10" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.11">
+ <b>Q.11 Who bagged India's first medal at the 21st Commonwealth Games 2018 ? </b><br><br>
+            <input type="checkbox" name="q11" value="A", style="height: 20px; width:20px;" >Saikhom Mirabai Chanu <br>
+            <input type="checkbox" name="q11" value="B", style="height: 20px; width:20px;">Virdhawal Khade<br>
+            <input type="checkbox" name="q11" value="C", style="height: 20px; width:20px;">Srihari Nataraj <br>
+            <input type="checkbox" name="q11" value="D", style="height: 20px; width:20px;">P. Gururaja<br>
+            <input type="button" value="Next"  name ="Q.12" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.11" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.12">
+ <b>Q.12 Fort William beat Nairn County 5-2 this week in the North of Scotland Cup. What was unusual about that? </b><br><br>
+            <input type="checkbox" name="q12" value="A", style="height: 20px; width:20px;" >They were 2-0 down with 10 minutes to play <br>
+            <input type="checkbox" name="q12" value="B", style="height: 20px; width:20px;">They had not won any of their previous 73 games<br>
+            <input type="checkbox" name="q12" value="C", style="height: 20px; width:20px;">They only had seven players on the pitch at the end<br>
+            <input type="checkbox" name="q12" value="D", style="height: 20px; width:20px;">Their team featured four brothers and was managed by their dad<br>
+            <input type="button" value="Next"  name ="Q.13" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.12" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.13">
+ <b>Q.13 En Passant is related to which game? </b><br><br>
+            <input type="checkbox" name="q13" value="A", style="height: 20px; width:20px;" >Billiards <br>
+            <input type="checkbox" name="q13" value="B", style="height: 20px; width:20px;"> Snooker<br>
+            <input type="checkbox" name="q13" value="C", style="height: 20px; width:20px;">Carrom<br>
+            <input type="checkbox" name="q13" value="D", style="height: 20px; width:20px;">Chess<br>
+            <input type="button" value="Next"  name ="Q.14" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.13" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.14">
+ <b>Q.14 Where and when the first Olympic Flag was furled ? </b><br><br>
+            <input type="checkbox" name="q14" value="A", style="height: 20px; width:20px;" >1912 Stockholm (Sweden)<br>
+            <input type="checkbox" name="q14" value="B", style="height: 20px; width:20px;">1908 London (England) <br>
+            <input type="checkbox" name="q14" value="C", style="height: 20px; width:20px;">1920 Antwerp (Belgium)<br>
+            <input type="checkbox" name="q14" value="D", style="height: 20px; width:20px;">1896 Athens (Greece)<br>
+            <input type="button" value="Next"  name ="Q.15" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.14" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.15">
+<b>Q.15 What is the distance of Marathon Race? </b><br><br>
+            <input type="checkbox" name="q15" value="A", style="height: 20px; width:20px;" >21 miles 385 yards<br>
+            <input type="checkbox" name="q15" value="B", style="height: 20px; width:20px;">25 miles 385 yards<br>
+            <input type="checkbox" name="q15" value="C", style="height: 20px; width:20px;"> 26 miles 385 yards<br>
+            <input type="checkbox" name="q15" value="D", style="height: 20px; width:20px;">42 km<br>
+            <input type="button" value="Next"  name ="Q.16" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.15" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.16">
+            <b>Q.16 Arnis is played in which country? </b><br><br>
+            <input type="checkbox" name="q16" value="A", style="height: 20px; width:20px;" >Philippines<br>
+            <input type="checkbox" name="q16" value="B", style="height: 20px; width:20px;">Taiwan<br>
+            <input type="checkbox" name="q16" value="C", style="height: 20px; width:20px;">Thailand<br>
+            <input type="checkbox" name="q16" value="D", style="height: 20px; width:20px;"> Laos<br>
+            <input type="button" value="Next"  name ="Q.17" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.16" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.17">
+            <b>Q.17 The world’s best female golfers are in England this weekend for the Women’s British Open – the final major of the year. Which country has dominated the sport this season, providing winners of three majors?  </b><br><br>
+            <input type="checkbox" name="q17" value="A", style="height: 20px; width:20px;" >Ireland <br>
+            <input type="checkbox" name="q17" value="B", style="height: 20px; width:20px;"> South Korea<br>
+            <input type="checkbox" name="q17" value="C", style="height: 20px; width:20px;">New Zealand<br>
+            <input type="checkbox" name="q17" value="D", style="height: 20px; width:20px;"> Portugal<br>
+            <input type="button" value="Next"  name ="Q.18" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.17" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.18">
+            <b>Q.18 Which one of the following teams was defeated by India to win the Women's Hockey Asia Cup title, 2017? </b><br><br>
+            <input type="checkbox" name="q18" value="A", style="height: 20px; width:20px;" >Japan<br>
+            <input type="checkbox" name="q18" value="B", style="height: 20px; width:20px;"> China<br>
+            <input type="checkbox" name="q18" value="C", style="height: 20px; width:20px;">South Korea <br>
+            <input type="checkbox" name="q18" value="D", style="height: 20px; width:20px;"> Pakistan<br>
+            <input type="button" value="Next"  name ="Q.19" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.18" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.19">
+            <b>Q.19 Who among the following won a bronze medal for India in Wrestling (Freestyle) at the 2016 Rio Olympics ? </b><br><br>
+            <input type="checkbox" name="q19" value="A", style="height: 20px; width:20px;" > Sandeep Tomar <br>
+            <input type="checkbox" name="q19" value="B", style="height: 20px; width:20px;">Sakshi Malik<br>
+            <input type="checkbox" name="q19" value="C", style="height: 20px; width:20px;">Vinesh Phogat<br>
+            <input type="checkbox" name="q19" value="D", style="height: 20px; width:20px;"> Narsingh Yadav<br>
+            <input type="button" value="Next"  name ="Q.20" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.19" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.20">
+            <b>Q.20 NFL player Antonio Brown has been out of action in recent weeks due to a mysterious foot injury. What happened them? </b><br><br>
+            <input type="checkbox" name="q20" value="A", style="height: 20px; width:20px;" >He fell asleep on the beach and his feet got sunburnt <br>
+            <input type="checkbox" name="q20" value="B", style="height: 20px; width:20px;">He suffered frostbite <br>
+            <input type="checkbox" name="q20" value="C", style="height: 20px; width:20px;">He fell from a climbing frame<br>
+            <input type="checkbox" name="q20" value="D", style="height: 20px; width:20px;"> He fell out of a kayak and got his feet stuck inside<br>
+            <input type="button" value="Next"  name ="Q.21" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.20" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.21">
+<b>Q.21 Which of these Indian players scored a Hundred and took five wickets in an innings in test matches? </b><br><br>
+            <input type="checkbox" name="q21" value="A", style="height: 20px; width:20px;"> Ravichandran Ashwin<br>
+            <input type="checkbox" name="q21" value="B", style="height: 20px; width:20px;"> MH Mankad<br>
+            <input type="checkbox" name="q21" value="C", style="height: 20px; width:20px;"> Kapil Dev<br>
+            <input type="checkbox" name="q21" value="D", style="height: 20px; width:20px;"> PR Umrigar<br>
+            <input type="button" value="Next"  name ="Q.22" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.21" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.22">
+            <b>Q.22 Out of these players, select the winners of ‘career grand slam’. (Winning all grand slams in a calendar year is known as ‘career grand slam’) ?</b><br><br>
+            <input type="checkbox" name="q22" value="A", style="height: 20px; width:20px;" >Andy Murray<br>
+            <input type="checkbox" name="q22" value="B", style="height: 20px; width:20px;">Rafael Nadal<br>
+            <input type="checkbox" name="q22" value="C", style="height: 20px; width:20px;">  Roger Federer
+<br>
+            <input type="checkbox" name="q22" value="D", style="height: 20px; width:20px;">Novak Jdokovic<br>
+            <input type="button" value="Next"  name ="Q.23" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.22" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+ 
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.23">
+            <b>Q.23 Which of these sportsperson received the distinguished Padma Vibhushan Award?</b><br><br>
+            <input type="checkbox" name="q23" value="A", style="height: 20px; width:20px;" >Vishwanathan Anand
+<br>
+            <input type="checkbox" name="q23" value="B", style="height: 20px; width:20px;"> Tenzing Norgay
+<br>
+            <input type="checkbox" name="q23" value="C", style="height: 20px; width:20px;"> Edmund Hillary<br>
+            <input type="checkbox" name="q23" value="D", style="height: 20px; width:20px;"> Dhyan Chand<br>
+            <input type="button" value="Next"  name ="Q.24" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.23" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+ 
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.24">
+            <b>Q.24  Which of these players scored hundred and get a hat-trick in ipl?
+</b><br><br>
+            <input type="checkbox" name="q24" value="A", style="height: 20px; width:20px;" > Virendra Sehwag<br>
+            <input type="checkbox" name="q24" value="B", style="height: 20px; width:20px;"> Shane Watson<br>
+            <input type="checkbox" name="q24" value="C", style="height: 20px; width:20px;"> Yusuf Pathan<br>
+            <input type="checkbox" name="q24" value="D", style="height: 20px; width:20px;"> Rohit Sharma<br>
+            <input type="button" value="Next"  name ="Q.25" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.24" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.25">
+            <b>Q.25  Which of the following players has a strike rate of over hundred(min. 2000 runs)?
+</b><br><br>
+            <input type="checkbox" name="q25" value="A", style="height: 20px; width:20px;" > Jos Buttler<br>
+            <input type="checkbox" name="q25" value="B", style="height: 20px; width:20px;"> Shahid Afridi<br>
+            <input type="checkbox" name="q25" value="C", style="height: 20px; width:20px;"> Adam Gilchrist<br>
+            <input type="checkbox" name="q25" value="D", style="height: 20px; width:20px;"> Brendon McCullum<br>
+            <input type="button" value="Next"  name ="Q.26" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.25" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.26">
+            <b>Q.26 Which of the following terms is related to Golf?
+</b><br><br>
+            <input type="checkbox" name="q26" value="A", style="height: 20px; width:20px;" > Eagle<br>
+            <input type="checkbox" name="q26" value="B", style="height: 20px; width:20px;"> Albatross<br>
+            <input type="checkbox" name="q26" value="C", style="height: 20px; width:20px;"> Bogey<br>
+            <input type="checkbox" name="q26" value="D", style="height: 20px; width:20px;"> Birdie<br>
+            <input type="button" value="Next"  name ="Q.27" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.26" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.27">
+            <b>Q.27 Which of the following position are related to volleyball?
+</b><br><br>
+            <input type="checkbox" name="q27" value="A", style="height: 20px; width:20px;" > Spiker<br>
+            <input type="checkbox" name="q27" value="B", style="height: 20px; width:20px;">Libero<br>
+            <input type="checkbox" name="q27" value="C", style="height: 20px; width:20px;">Defender<br>
+            <input type="checkbox" name="q27" value="D", style="height: 20px; width:20px;"> Midfielder<br>
+            <input type="button" value="Next"  name ="Q.28" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.27" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.28">
+            <b>Q.28 Who has won the “Puskas Award" till date?
+</b><br><br>
+            <input type="checkbox" name="q28" value="A", style="height: 20px; width:20px;" > Mohamed Salah<br>
+            <input type="checkbox" name="q28" value="B", style="height: 20px; width:20px;">Lionel Messi<br>
+            <input type="checkbox" name="q28" value="C", style="height: 20px; width:20px;">Diego Maradona<br>
+            <input type="checkbox" name="q28" value="D", style="height: 20px; width:20px;"> Olivier Giroud<br>
+            <input type="button" value="Next"  name ="Q.29" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.28" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.29">
+            <b>Q.29 Which of the following team play in top flight NBA tournament?
+</b><br><br>
+            <input type="checkbox" name="q29" value="A", style="height: 20px; width:20px;" > Chicago Bulls<br>
+            <input type="checkbox" name="q29" value="B", style="height: 20px; width:20px;">New York Mets<br>
+            <input type="checkbox" name="q29" value="C", style="height: 20px; width:20px;">Golden State Warrior<br>
+            <input type="checkbox" name="q29" value="D", style="height: 20px; width:20px;">Los Angeles Dodgers<br>
+            <input type="button" value="Next"  name ="Q.30" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.29" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.30">
+            <b>Q.30 Which of the following teams are in the Top 5 FIH World Ranking?
+</b><br><br>
+            <input type="checkbox" name="q30" value="A", style="height: 20px; width:20px;" > India <br>
+            <input type="checkbox" name="q30" value="B", style="height: 20px; width:20px;">Pakistan <br>
+            <input type="checkbox" name="q30" value="C", style="height: 20px; width:20px;">England <br>
+            <input type="checkbox" name="q30" value="D", style="height: 20px; width:20px;">Belgium <br>
+            <input type="button" value="Next"  name ="Q.31" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.30" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.31">
+            <b>Q.31 Which Countries have never hosted the Olympics?
+</b><br><br>
+            <input type="checkbox" name="q31" value="A", style="height: 20px; width:20px;" >South Africa<br>
+            <input type="checkbox" name="q31" value="B", style="height: 20px; width:20px;">India<br>
+            <input type="checkbox" name="q31" value="C", style="height: 20px; width:20px;">Australia<br>
+            <input type="checkbox" name="q31" value="D", style="height: 20px; width:20px;">New Zealand<br>
+            <input type="button" value="Next"  name ="Q.32" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.31" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+ 
+ 
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.32">
+            <b>Q.32 Who was the winner of Bharat Ratna Award in the year 2014 ?</b><br><br>
+            <input type="checkbox" name="q32" value="A", style="height: 20px; width:20px;" > Dr APJ Abdul Kalam
+<br>
+            <input type="checkbox" name="q32" value="B", style="height: 20px; width:20px;"> Dr CNR Rao<br>
+            <input type="checkbox" name="q32" value="C", style="height: 20px; width:20px;"> Sachin Tendulka<br>
+            <input type="checkbox" name="q32" value="D", style="height: 20px; width:20px;">Rahul Dravid<br>
+            <input type="button" value="Next"  name ="Q.33" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.32" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+ 
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.33">
+            <b>Q.33 MS Dhoni has played for which teams in whole IPL history, till time
+?</b><br><br>
+            <input type="checkbox" name="q33" value="A", style="height: 20px; width:20px;" > Pune Warriors India<br>
+            <input type="checkbox" name="q33" value=" B", style="height: 20px; width:20px;"> Rising Pune Supergiants
+<br>
+            <input type="checkbox" name="q33" value="C
+", style="height: 20px; width:20px;">Chennai Super Kings<br>
+            <input type="checkbox" name="q33" value=" D
+",  style="height: 20px; width:20px;"> Kings XI Punjab<br>
+            <input type="button" value="Next"  name ="Q.34" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.33" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.34">
+            <b>Q.34 Which countries have won men’s hockey world cup more than once ?</b><br><br>
+            <input type="checkbox" name="q34" value="A", style="height: 20px; width:20px;" > India<br>
+            <input type="checkbox" name="q34" value="B", style="height: 20px; width:20px;"> Australia<br>
+            <input type="checkbox" name="q34" value="C", style="height: 20px; width:20px;"> Pakistan<br>
+            <input type="checkbox" name="q34" value="D", style="height: 20px; width:20px;"> Netherland<br>
+            <input type="button" value="Next"  name ="Q.35" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.34" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.35">
+            <b>Q.35 Which of the players have won men’s singles world tennis championship, more than 2 times ?</b><br><br>
+            <input type="checkbox" name="q35" value="A", style="height: 20px; width:20px;" > Andy Murray<br>
+            <input type="checkbox" name="q35" value="B", style="height: 20px; width:20px;"> Novak Djokovic<br>
+            <input type="checkbox" name="q35" value="C", style="height: 20px; width:20px;"> Rafael Nadal<br>
+            <input type="checkbox" name="q35" value="D", style="height: 20px; width:20px;"> Kevin Anderson<br>
+            <input type="button" value="Next"  name ="Q.36" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.35" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.36">
+            <b>Q.36 Which of the teams have won the IPL more than 3 times ?</b><br><br>
+            <input type="checkbox" name="q36" value="A", style="height: 20px; width:20px;" > Chennai Super Kings<br>
+            <input type="checkbox" name="q36" value="B", style="height: 20px; width:20px;"> Mumbai Indians<br>
+            <input type="checkbox" name="q36" value="C", style="height: 20px; width:20px;"> Kolkata Knight Riders<br>
+            <input type="checkbox" name="q36" value="D", style="height: 20px; width:20px;"> None of the Above<br>
+            <input type="button" value="Next"  name ="Q.37" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.36" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.37">
+            <b>Q.37 In which of the following games India has won a medal in Olympics ?</b><br><br>
+            <input type="checkbox" name="q37" value="A", style="height: 20px; width:20px;" > Wrestling<br>
+            <input type="checkbox" name="q37" value="B", style="height: 20px; width:20px;"> Hockey<br>
+            <input type="checkbox" name="q37" value="C", style="height: 20px; width:20px;"> Shooting<br>
+            <input type="checkbox" name="q37" value="D", style="height: 20px; width:20px;"> Tennis<br>
+            <input type="button" value="Next"  name ="Q.38" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.39" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.38">
+            <b>Q.38 Which of the following players represented Indian Cricket team at age less than 18 ?</b><br><br>
+            <input type="checkbox" name="q38" value="A", style="height: 20px; width:20px;" > Harbhajan Singh<br>
+            <input type="checkbox" name="q38" value="B", style="height: 20px; width:20px;"> Yuvraj Singh<br>
+            <input type="checkbox" name="q38" value="C", style="height: 20px; width:20px;"> Parthiv Patel<br>
+            <input type="checkbox" name="q38" value="D", style="height: 20px; width:20px;"> Sachin Tendulkar<br>
+            <input type="button" value="Next"  name ="Q.39" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.38" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.39">
+            <b>Q.39 Which of the players are recipients of Rajiv Gandhi Khel Ratna Award ?</b><br><br>
+            <input type="checkbox" name="q39" value="A", style="height: 20px; width:20px;" > Dhanraj Pillai<br>
+            <input type="checkbox" name="q39" value="B", style="height: 20px; width:20px;"> Sardara Singh<br>
+            <input type="checkbox" name="q39" value="C", style="height: 20px; width:20px;"> Sourav Ganguly<br>
+            <input type="checkbox" name="q39" value="D", style="height: 20px; width:20px;"> Virat Kohli<br>
+            <input type="button" value="Next"  name ="Q.40" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.39" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+
+<!-- Multiple choice questions   -->
+        <div class="question hidden" id="Q.40">
+            <b>Q.40  Which of the following players announced retirement in 2019 ?</b><br><br>
+            <input type="checkbox" name="q40" value="A", style="height: 20px; width:20px;" > Gautam Gambhir<br>
+            <input type="checkbox" name="q40" value="B", style="height: 20px; width:20px;"> Yuvraj Singh<br>
+            <input type="checkbox" name="q40" value="C", style="height: 20px; width:20px;"> Ambati Rayudu<br>
+            <input type="checkbox" name="q40" value="D", style="height: 20px; width:20px;"> Harbhajan Singh<br>
+            <input type="button" value="Next"  name ="Q.41" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.40" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+       
+        <div class="question hidden" id="Q.41">
+            <p style="font-style: italic">Sir Donald George Bradman, (27 August 1908 – 25 February 2001), often refer4red to as "The Don", was an Australian international cricketer, widely acknowledged as the greatest batsman of all time.
+The story that the young Bradman practised alone with a cricket stump and a golf ball is part of Australian folklore.[4] Bradman's meteoric rise from bush cricket to the Australian Test team took just over two years. Before his 22nd birthday, he had set many records for top scoring, some of which still stand, and became Australia's sporting idol at the height of the Great Depression.
+During a 20-year playing career, Bradman consistently scored at a level that made him, in the words of former Australia captain Bill Woodfull, "worth three batsmen to Australia".[5] A controversial set of tactics, known as Bodyline, was specifically devised by the England team to curb his scoring.</p>
+ 
+<b>Q.41  Bradman's career Test batting average of ____ has been cited as the greatest achievement by any sportsman in any major sport. </b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q41" value="A" >100.85<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q41" value="B"> 98.90<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q41" value="C"> 99.94<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q41" value="D"> 97.68<br>
+        <input type="button" value="Next"  name ="Q.42" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.41" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+ 
+</div>
+ 
+ 
+<div class="question hidden" id="Q.42">
+            <p style="font-style: italic">Sir Donald George Bradman, (27 August 1908 – 25 February 2001), often refer4red to as "The Don", was an Australian international cricketer, widely acknowledged as the greatest batsman of all time.
+The story that the young Bradman practised alone with a cricket stump and a golf ball is part of Australian folklore.[4] Bradman's meteoric rise from bush cricket to the Australian Test team took just over two years. Before his 22nd birthday, he had set many records for top scoring, some of which still stand, and became Australia's sporting idol at the height of the Great Depression.
+During a 20-year playing career, Bradman consistently scored at a level that made him, in the words of former Australia captain Bill Woodfull, "worth three batsmen to Australia".[5] A controversial set of tactics, known as Bodyline, was specifically devised by the England team to curb his scoring.</p>
+ 
+ 
+       
+<b>Q.42 No. of sixes Don Bradman Hit in his whole career are ____ </b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q42" value="A" > 6 <br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q42" value="B">10<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q42" value="C">15<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q42" value="D"> 20<br>
+        <input type="button" value="Next"  name ="Q.43" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.42" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+</div>
+ 
+<div class="question hidden" id="Q.43">
+            <p style="font-style: italic">Sir Donald George Bradman, (27 August 1908 – 25 February 2001), often refer4red to as "The Don", was an Australian international cricketer, widely acknowledged as the greatest batsman of all time.
+The story that the young Bradman practised alone with a cricket stump and a golf ball is part of Australian folklore.[4] Bradman's meteoric rise from bush cricket to the Australian Test team took just over two years. Before his 22nd birthday, he had set many records for top scoring, some of which still stand, and became Australia's sporting idol at the height of the Great Depression.
+During a 20-year playing career, Bradman consistently scored at a level that made him, in the words of former Australia captain Bill Woodfull, "worth three batsmen to Australia".[5] A controversial set of tactics, known as Bodyline, was specifically devised by the England team to curb his scoring.</p>
+ 
+<b>Q.43 Top scorer of triple centuries in International Test Cricket is/are </b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q43" value="A" >Virendra Sehwag<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q43" value="B"> Don Bradman<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q43" value="C"> Brian Lara<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q43" value="D"> Sachin Tendulkar<br>
+        <input type="button" value="Next"  name ="Q.44" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.43" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+</div>
+ 
+<div class="question hidden" id="Q.44">
+            <p style="font-style: italic">Sir Donald George Bradman, (27 August 1908 – 25 February 2001), often refer4red to as "The Don", was an Australian international cricketer, widely acknowledged as the greatest batsman of all time.
+The story that the young Bradman practised alone with a cricket stump and a golf ball is part of Australian folklore.[4] Bradman's meteoric rise from bush cricket to the Australian Test team took just over two years. Before his 22nd birthday, he had set many records for top scoring, some of which still stand, and became Australia's sporting idol at the height of the Great Depression.
+During a 20-year playing career, Bradman consistently scored at a level that made him, in the words of former Australia captain Bill Woodfull, "worth three batsmen to Australia".[5] A controversial set of tactics, known as Bodyline, was specifically devised by the England team to curb his scoring.</p>
+ 
+<b>Q.44 Who scored the first double century in International ODI cricket?</b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q44" value="A" > Virendra Sehwag<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q44" value="B">  Don Bradman<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q44" value="C"> Chris Gayle<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q44 value="D"> Sachin Tendulkar<br>
+        <input type="button" value="Next"  name ="Q.45" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.44" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+</div>
+ 
+<div class="question hidden" id="Q.45">
+            <p style="font-style: italic">Sir Donald George Bradman, (27 August 1908 – 25 February 2001), often refer4red to as "The Don", was an Australian international cricketer, widely acknowledged as the greatest batsman of all time.
+The story that the young Bradman practised alone with a cricket stump and a golf ball is part of Australian folklore.[4] Bradman's meteoric rise from bush cricket to the Australian Test team took just over two years. Before his 22nd birthday, he had set many records for top scoring, some of which still stand, and became Australia's sporting idol at the height of the Great Depression.
+During a 20-year playing career, Bradman consistently scored at a level that made him, in the words of former Australia captain Bill Woodfull, "worth three batsmen to Australia".[5] A controversial set of tactics, known as Bodyline, was specifically devised by the England team to curb his scoring.</p>
+ 
+<b>Q.45   Who among these have scored more than two double centuries in International ODI Cricket?</b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q45" value="A" >Virendra Sehwag<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q45" value="B"> Martin Guptill<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q45" value="C"> Chris Gayle<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q45" value="D"> Sachin Tendulkar<br>
+        <input type="button" value="Next"  name ="Q.46" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.45" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+</div>
+ 
+ 
+ 
+ 
+ 
+<div class="question hidden" id="Q.46">
+            <p style="font-style: italic">Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.
+</p>
+        <b>Q.46 Which is the topic sentence in the first paragraph?</b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q46" value="A" >The first sentence: 'The Olympic Games are a major international event which includes both summer and winter sports. '<br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q46" value="B"> The second sentence beginning: 'The modern Olympic Committee (IOC) introduced the Winter Games for winter and ice sports ;'<br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q46" value="C">The third sentence: 'The Summer Olympic Games are held every four years, as are the Winter Games.'<br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q46" value="D"> The fourth sentence: 'This means that every two years there is either a summer or winter Olympics.'<br><br>
+        <input type="button" value="Next"  name ="Q.47" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.46" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br></div>
+ 
+<div class="question hidden" id="Q.47">
+            <p style="font-style: italic">Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.
+</p>
+ 
+ 
+<b>Q.47 If you were to write headings for each paragraph, what heading would be appropriate for the third paragraph?</b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q47" value="A" >Women and the Olympics<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q47" value="B">Where the Olympics are held<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q47" value="C">The first modern Olympic Games<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q47" value="D"> History of the Olympic Games<br>
+        <input type="button" value="Next"  name ="Q.48" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.47" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+</div>
+ 
+<div class="question hidden" id="Q.48">
+            <p style="font-style: italic">Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.
+</p>
+ 
+ 
+<b>Q.48  What is the topic sentence in the fourth paragraph?  </b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q48" value="A" > '400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.'<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q48" value="B"> 'Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers.'<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q48" value="C"> 'The Paralympic Games were set up in 1948.'<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q48" value="D"> 'The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London.'<br>
+        <input type="button" value="Next"  name ="Q.49" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.48" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+</div>
+ 
+<div class="question hidden" id="Q.49">
+            <p style="font-style: italic">Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.
+</p>
+ 
+ 
+<b>Q.49 What is the closing sentence in the second paragraph?</b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q49" value="A" > 'The IOC is responsible for choosing the host city for each Olympic Games.'<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q49" value="B"> 'The Olympic Games offer an opportunity to the host country to show off their city to the world.'<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q49" value="C">  'Nearly every nation in the world is represented in the Olympic Games.'<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q49" value="D"> 'There are more than 13,000 athletes who compete in the summer and winter Olympics in 33 different sports with a total of almost 400 events.'<br>
+        <input type="button" value="Next"  name ="Q.50" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.49" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+</div>
+<div class="question hidden" id="Q.50">
+            <p style="font-style: italic">Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.
+</p>
+ 
+<b>Q.50    Which paragraph makes a comparison between the Olympics as they are now (described in paragraph 2), and the first modern Olympic Games? </b><br><br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q50" value="A" >Paragraph 1<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q50" value="B"> Paragraph 2<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q50" value="C"> Paragraph 3<br>
+        <input type="checkbox" style="height: 20px; width:20px;" name="q50" value="D"> Paragraph 4<br>
+        <input type="button" value="Clear Response" name ="Q.50" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;"><br>
+</div>
+        <div class="qindex">
+            <input type="button" value="Q.1" onclick="Jumptoq(event)">
+            <input type="button" value="Q.2" onclick="Jumptoq(event)">
+            <input type="button" value="Q.3" onclick="Jumptoq(event)">
+            <input type="button" value="Q.4" onclick="Jumptoq(event)">
+            <input type="button" value="Q.5" onclick="Jumptoq(event)">
+            <input type="button" value="Q.6" onclick="Jumptoq(event)" >
+            <input type="button" value="Q.7" onclick="Jumptoq(event)">
+            <input type="button" value="Q.8" onclick="Jumptoq(event)">
+            <input type="button" value="Q.9" onclick="Jumptoq(event)">
+            <input type="button" value="Q.10" onclick="Jumptoq(event)">
+            <input type="button" value="Q.11" onclick="Jumptoq(event)">
+            <input type="button" value="Q.12" onclick="Jumptoq(event)">
+            <input type="button" value="Q.13" onclick="Jumptoq(event)">
+            <input type="button" value="Q.14" onclick="Jumptoq(event)">
+            <input type="button" value="Q.15" onclick="Jumptoq(event)">
+            <input type="button" value="Q.16" onclick="Jumptoq(event)">
+            <input type="button" value="Q.17" onclick="Jumptoq(event)">
+            <input type="button" value="Q.18" onclick="Jumptoq(event)">
+            <input type="button" value="Q.19" onclick="Jumptoq(event)">
+            <input type="button" value="Q.20" onclick="Jumptoq(event)">
+            <input type="button" value="Q.21" onclick="Jumptoq(event)">
+            <input type="button" value="Q.22" onclick="Jumptoq(event)">
+            <input type="button" value="Q.23" onclick="Jumptoq(event)">
+            <input type="button" value="Q.24" onclick="Jumptoq(event)">
+            <input type="button" value="Q.25" onclick="Jumptoq(event)">
+            <input type="button" value="Q.26" onclick="Jumptoq(event)">
+            <input type="button" value="Q.27" onclick="Jumptoq(event)">
+            <input type="button" value="Q.28" onclick="Jumptoq(event)">
+            <input type="button" value="Q.29" onclick="Jumptoq(event)">
+            <input type="button" value="Q.30" onclick="Jumptoq(event)">
+            <input type="button" value="Q.31" onclick="Jumptoq(event)">
+            <input type="button" value="Q.32" onclick="Jumptoq(event)">
+            <input type="button" value="Q.33" onclick="Jumptoq(event)">
+            <input type="button" value="Q.34" onclick="Jumptoq(event)">
+            <input type="button" value="Q.35" onclick="Jumptoq(event)">
+            <input type="button" value="Q.36" onclick="Jumptoq(event)" >
+            <input type="button" value="Q.37" onclick="Jumptoq(event)">
+            <input type="button" value="Q.38" onclick="Jumptoq(event)">
+            <input type="button" value="Q.39" onclick="Jumptoq(event)">
+            <input type="button" value="Q.40" onclick="Jumptoq(event)">
+            <input type="button" value="Q.41" onclick="Jumptoq(event)">
+            <input type="button" value="Q.42" onclick="Jumptoq(event)">
+            <input type="button" value="Q.43" onclick="Jumptoq(event)">
+            <input type="button" value="Q.44" onclick="Jumptoq(event)">
+            <input type="button" value="Q.45" onclick="Jumptoq(event)">
+
+            <input type="button" value="Q.46" onclick="Jumptoq(event)">
+            <input type="button" value="Q.47" onclick="Jumptoq(event)">
+            <input type="button" value="Q.48" onclick="Jumptoq(event)">
+            <input type="button" value="Q.49" onclick="Jumptoq(event)">
+            <input type="button" value="Q.50" onclick="Jumptoq(event)">
+        </div>
+        <div style="text-align: center;margin-top:3%"><input type="submit" value="Submit" style="margin-left:1%;text-align:center;align-self: center;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color:black;"></div>
+        
+    </form>
+</div>
+   
+</body>
+</html> 

@@ -1,0 +1,57 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="udg_champ/css/style.css">
+<style>
+    body {
+        background-image: url('images/q.jpg');
+        background-size: cover;
+    }
+</style>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="/766d1e56a1f66f223807ad61d106097flo" method="POST">
+            <h1>Login Now</h1>
+            <input type="text" name="uname" placeholder="Username" required minlength="8">
+            <input type="password" name="upassword" placeholder="Password" minlength="8" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form action="/f26fe5b7f7a2f27e5458c9cfd5a55580re" method="POST">
+            <%= msg %>
+                <h1>Create Account</h1>
+                <input type="text" name="name" placeholder="Username (min length: 8)" required minlength="8">
+                <input type="email" name="mail" pattern=".+@gmail.com" size="30" required placeholder="Google Mail (example@gmail.com)">
+                <input type="tel" name="contact" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="Contact Number : 123-456-7890" required>
+                <input type="password" name="password1" placeholder="Password (min length : 8)" minlength="8" required>
+                <input type="password" name="password2" placeholder="Re-Password (min length : 8)" minlength="8" required>
+                <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Login Steps</h1>
+                <p>
+                    Enter the credentials to login to Udghosh Events Managment Portal.
+                </p>
+                <button class="ghost" id="signIn">Sign Up</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Registration Steps</h1>
+                <p>
+                    Enter the Credentials as specified to register to Udghosh.
+                </p>
+                <a style="color: white" href="Steps.pdf" target="_blank" class="button big special">Registration Steps</a>
+                <button class="ghost" id="signUp">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        &copy; Udghosh'19
+    </p>
+</footer>
+
+<script src="udg_champ/js/style.js"></script>

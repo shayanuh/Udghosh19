@@ -1,0 +1,117 @@
+<%= msg %>
+
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>NOSSQ'19</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="ca/favicon/logo.png" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+    background-color: #1abc9c; /* Green */
+    color: #ffffff;
+  }
+  .bg-2 { 
+    background-color: #474e5d; /* Dark Blue */
+    color: #ffffff;
+  }
+  .bg-3 { 
+    background-color: #ffffff; /* White */
+    color: #555555;
+  }
+  .bg-4 { 
+    background-color: #2f2f2f; /* Black Gray */
+    color: #fff;
+  }
+  .container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  .navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    font-size: 12px;
+    letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+    color: #1abc9c !important;
+  }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div>
+      <h3 style="color:#2f2f2f; text-align: center;">NOSSQ'19</h3>
+      <br>
+      <h4 style="color:#2f2f2f; text-align: center;">Class 11th-12th</h4>
+  </div>
+</nav>
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center" style="padding:0% 1%">
+  <h3 style="color:whitesmoke; text-align:left;">Total Marks:110</h3>
+</div>
+
+<!-- Second Container  of instructions -->
+<div class="container-fluid bg-2 text-center">
+  <h2 style="text-align:center;">Read all the instructions carefully.</h2>
+  <h3 style="text-align: left;">General instructions:</h3><br>
+  <ol>
+    <li style="text-align: left; color:red;font-weight: bold;">Do not Reload the page.On Reloading the page all your data will be lost and Udghosh will not be responsible for any such loss.</li>
+      <li style="text-align: left;">Before attempting the quiz please ensure that you have proper internet connection.</li>
+      <li style="text-align: left;">The quiz is best supported in desktop/laptop.Please don't use your smart phones</li>
+    <li style="text-align: left;">The maximum duration for completing the quiz is 20 mins.</li>
+    <li style="text-align: left;">Total number of questions and their associated difficulty vary with pool.</li>
+    <li style="text-align: left;">In case multiple participants end up scoring same, the one with the lower final submission time will be given a lower rank(preference).</li>
+    <li style="text-align: left;">Results for the quiz will be sent directly to the schools.</li>
+    <li style="text-align: left;">All the questions are “One or more option correct” questions so be very careful while answering them.</li>
+    <li style="text-align: left;">
+      MARKING SCHEME <br>
+      <div>
+        Comprehension Type Questions <br>
+        <ul>
+          <li>For every correct answer, you’ll be awarded +2 marks and for every wrong answer, 1 mark will be deducted.</li>
+          <li>Read the paragraph carefully and try to answer questions after that.</li>
+        </ul>
+        Multiple option correct questions <br>
+        <ul>
+          <li>For every correct answer, you’ll be awarded +2 marks and for every wrong answer, 1 mark will be deducted.</li>
+          <li>Read the questions carefully and answer only if you know all the correct answers. Partially correct answers will be awarded with a negative mark.</li>
+        </ul>
+      </div>
+    </li>
+    <li>Try to attempt maximum questions you can and Best of Luck!!!!</li>
+</ol>
+</div>
+
+<!-- Third Container (Grid) -->
+<div class="container-fluid bg-3 text-center"> 
+
+	<form action="/c470c7600c5c28a89bbc35d4a48cefb7" method="POST">
+		<input style="display: none;" type="text" name="userid" value= <%= user %> required>
+		<button type="submit" style="border:none;border-radius:5px;background-color:#1abc9c;color:white;padding:0.5% 1%">Start Quiz</button>
+	</form>
+	  
+</div>
+
+
+</body>
+</html>

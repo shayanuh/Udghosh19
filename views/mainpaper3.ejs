@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="ca/favicon/logo.png" />
+
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color:black;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.hidden{
+    display:none;
+}
+.question {
+    margin-left:10%;
+    margin-top:8%;
+    background-color:skyblue;
+    
+    border-radius:10px;
+    border:none;
+    padding:4%;
+    margin-right:10%;
+    
+}
+input[type=radio] {
+    /* border: 0px;
+    width: 3%;
+    height: 2em; */
+    -ms-transform: scale(2); /* IE 9 */
+    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+    transform: scale(2);
+    margin-right: 1%;
+}
+.qindex
+{
+    text-align: justify;
+    margin-left:10%;
+    margin-right:10%;
+    margin-top:5%;
+}
+.qindex input[type=button]
+{
+    text-align: center;
+    padding:1% 2%;
+    border:none;
+    border-radius:5px;
+    width:6.00%;
+    color:black;
+    font-weight: bold;
+    /* background-color:grey; */
+    margin-left:.001%;
+    margin-right:.001%;
+    margin-bottom: 1%;
+}
+.qindex input[type=button]:hover{
+    background-color: black;
+    color:white;
+    
+    
+}
+.question input[type=button]:hover{
+    background-color: black;
+}
+.attempted
+{
+    background-color: green;
+}
+.main {
+  margin-left: 20%; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+<script>
+    function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since 
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        display.textContent = minutes + ":" + seconds; 
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            
+            document.getElementById("form").submit();
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
+window.onload = function () {
+    var fiveMinutes = 60 * 20,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+     {
+var clockElement = document.getElementById( "clock" );
+function updateClock ( clock ) {
+  clock.innerHTML = new Date().toLocaleTimeString();
+}
+setInterval(function () {
+    updateClock( clockElement );
+}, 1000);
+};
+};
+    function Jumptoq(event)
+    {
+        var qno = event.target.value;
+        for(var i = 0 ;i<55;i++)
+        {
+            document.getElementsByClassName("question")[i].classList.add("hidden")
+        }
+        document.getElementById(qno).classList.remove("hidden")
+    }
+    function next(event)
+    {
+     var qno =event.target.name;
+     for(var i = 0 ;i<55;i++)
+        {
+            document.getElementsByClassName("question")[i].classList.add("hidden")
+        }
+        document.getElementById(qno).classList.remove("hidden") 
+    }
+    function clears(event)
+    {
+        
+        
+        var qno=parseInt(event.target.name[2])
+        if (event.target.name.length>3)
+        qno=parseInt(event.target.name[2]+event.target.name[3])
+        for(var i =0 ; i<4 ;i++)
+        {
+            document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[qno-1].classList.remove("attempted");
+            document.getElementsByClassName("question")[qno-1].getElementsByTagName("input")[i].checked =false;
+        }
+    }
+    function attempt()
+    {
+        for (var i =0 ;i<55;i++)
+        {
+            var q = document.getElementsByClassName("question")[i];
+            console.log( document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[2])
+            for(var j =0 ;j<4;j ++)
+            {
+                if(q.getElementsByTagName("input")[j].checked === true)
+                {
+                    console.log(q.getElementsByTagName("input")[j].checked)
+                  document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[i].classList.add("attempted");  
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body>
+
+<div class="sidenav" style="color:white;">
+    <h1 style="text-align:center;">NOSSQ 2019</h1>
+    <span id="clock"></span><br>
+    <br><hr>
+    
+  <b style="margin-left:1%;font-size:75%;">Username : <%= user %> </b>
+  <br><hr>
+  <b style="margin-left:1%;font-size:75%">Time Remaining : <span id="time"></span></b>
+  <br><hr>
+  <b style="margin-left:1%;font-size:75%">Maximum Marks : 110 <span id="time"></span></b>
+  <br><hr>
+  <h2 style="margin-left:3%;">Instructions</h2>
+  <ul style="font-size:100%;margin-right:1%">
+        <li style="text-align: left; color:red;font-weight: bold;">Do not Reload the page.On Reloading the page all your data will be lost and Udghosh will not be responsible for any such loss.</li>
+        <br>
+        <li>All your marked responses will be displayed as <input type=button style="width:10%;border:none;border-radius: 5px;background-color: green"> and unmarked responses as <input type=button style="width:10%;border:none;border-radius: 5px;"></li>
+        <br>
+      
+      <li>The duration of the quiz is 20 minutes.</li><br>
+      <li>There are a total of 55 questions </li><br>
+      <li>All questions are compulsary and carry equal weightage.</li><br>
+      <li>All the questions are "One or more option correct" questions so be very careful while answering them</li><br>
+      
+      <li>MARKING SCHEME<br><br>
+        <b>Comprehension Type Questions</b><br><br>
+        <ul>
+            <li>For every correct answer, you’ll be awarded +2 marks and for every wrong answer, 1 mark will be deducted.</li><br>
+            <li>Read the paragraph carefully and try to answer questions after that</li><br>
+        </ul>
+        <b>Multiple option correct questions</b><br>
+        <br>
+        <ul>
+            <li>For every correct answer, you’ll be awarded +2 marks and for every wrong answer, 1 mark will be deducted.</li><br>
+            <li>Read the questions carefully and answer only if you know all the correct answers. Partially correct answers will be awarded with a negative mark </li>
+        </ul>
+        
+        
+        </li><br>
+      <li>Try to attempt maximum questions you can and Best of Luck!!!!</li><br>
+        <br>
+        
+    </ul>
+</div>
+
+<div class="main">
+  <!-- <h1 style="margin-left: 45%;color:rgb(0, 26, 255)">NOSSQ 2019</h1> -->
+    <h3 style="text-align:center;color:black">Stage II - Senior Category</h3>
+    <h4 style="text-align:center;color:black">(Class 11th-12th)</h4>
+    <form method="POST" action="/c470c7600c5c28a89sdsbbc35d4a4sdcefb7" id ="form" onchange="attempt()">
+            <input type="text" style= "display: none" name ="userid" value = <%=user %> 
+            <!-- Multiple choice questions   -->
+            <div class="question " id="Q.1">
+<b>Q.1  Who was the Australian media tycoon commercialised the world cricket and was best known for founding World Series Cricket?</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q1" value="A" > Rupert Murdoch<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q1" value="B"> Frank Packer<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q1" value="C">Kerry Packer<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q1" value="D">Clyde Packer<br>
+            <input type="button" value="Next"  name ="Q.2" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.1" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.2">
+<b>Q.2 Who was the first batsman to be given lbw after bowler challenged the original not-out decision in Tests?</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q2" value="A" > Sachin Tendulkar<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q2" value="B"> Virendra Sehwag<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q2" value="C">Rahul Dravid<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q2" value="D"> Sourav Ganguly<br>
+            <input type="button" value="Next"  name ="Q.3" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.2" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.3">
+<b>Q.3 When were the first written ‘Laws of Cricket’ drawn up ?</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q3" value="A">1816<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q3" value="B">1834<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q3" value="C">1774<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q3" value="D">1744<br>
+            <input type="button" value="Next"  name ="Q.4" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.3" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.4">
+<b>Q.4 When was All India Women's Hockey Federation was formed?</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q4" value="A">1947<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q4" value="B">1948<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q4" value="C">1949<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q4" value="D">1950<br>
+            <input type="button" value="Next"  name ="Q.5" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.4" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.5">
+<b>Q.5 What is the motto of Olympics 2020?</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q5" value="A" >Play for fun<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q5" value="B">Do and win<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q5" value="C">Discover Tomorrow<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q5" value="D">None of these<br>
+            <input type="button" value="Next"  name ="Q.6" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.5" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.6">
+<b>Q.6 Which athlete is the most decorated Olympian of all time?</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q6" value="A" >Carl Lewis<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q6" value="B">Usain Bolt<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q6" value="C">Michael Phelps<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q6" value="D">None of these<br>
+            <input type="button" value="Next"  name ="Q.7&" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.6" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.7">
+<b>Q.7 Leslie Claudius , was the member of three Olympic Gold medal winning teams of</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q7" value="A">Wrestling<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q7" value="B">Hockey<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q7" value="C">Gymnastics<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q7" value="D">Kabaddi<br>
+            <input type="button" value="Next"  name ="Q.8" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.7" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.8">
+<b>Q.8   Which sport is added for first time in Tokyo Olympics 2020?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q8" value="A" >Fencing<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q8" value="B">Curling<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q8" value="C">Table Tennis Mixed Doubles<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q8" value="D">Polo<br>
+            <input type="button" value="Next"  name ="Q.9" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.8" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.9">
+<b>Q.9   Which of the cities are famous for sports goods industry?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q9" value="A" >Delhi<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q9" value="B">Meerut<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q9" value="C">Jalandhars<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q9" value="D">Kanpur<br>
+            <input type="button" value="Next"  name ="Q.10" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.9" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.10">
+
+<b>Q.10   Famous cricketer ‘Dirk Nannes’ played for which team(s) in International Cricket?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q10" value="A" >Australia<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q10" value="B">Netherlands<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q10" value="C">Ireland<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q10" value="D">Scotland<br>
+            <input type="button" value="Next"  name ="Q.11" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.10" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.11">
+ 
+<b>Q.11   Only team in ODI history to lose a 60 over ODI Final (1979 World Cup), a 50 over ODI Final (1992 World Cup and 2004 Champions Trophy) and a 20 over ODI Final (2013 Champions Trophy) in ICC tournaments
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q11" value="A" >India<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q11" value="B">Australia<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q11" value="C">England<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q11" value="D">West Indies<br>
+            <input type="button" value="Next"  name ="Q.12" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.11" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.12">
+<b>Q.12   The players to have batted in 10 different batting positions in ODIs among these are
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q12" value="A" >Abdur Razzaq<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q12" value="B">Shoaib Malik<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q12" value="C">MS Dhoni<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q12" value="D">Rohit Sharma<br>
+            <input type="button" value="Next"  name ="Q.13" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.12" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+ 
+        <div class="question hidden" id="Q.13">
+<b>Q.13   Who Indian among these have won an Olympic gold medal?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q13" value="A" >Gagan Narang<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q13" value="B"> Heena Sindhu<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q13" value="C">Abhinav Bindra<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q13" value="D"> Sushil Kumar<br>
+            <input type="button" value="Next"  name ="Q.14" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.13" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+ 
+        <div class="question hidden" id="Q.14">
+<b>Q.14    Which of these Indian Shuttlers have been World Number 1 once in their career?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q14" value="A" > Saina Nehwal<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q14" value="B">  PV Sindhu<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q14" value="C">  Kidambi Srikanth<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q14" value="D">  Parupalli Kashyap<br>
+            <input type="button" value="Next"  name ="Q.15" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.14" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.15">
+ 
+<b>Q.15   Which among these Indian Shuttlers have won an Olympic Medal?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q15" value="A" > P. Gopichand<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q15" value="B">Saina Nehwal<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q15" value="C"> PV Sindhu<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q15" value="D"> Sai praneeth<br>
+            <input type="button" value="Next"  name ="Q.16" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.15" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+ 
+        <div class="question hidden" id="Q.16">
+<b>Q.16  Who among these European clubs have won more than 5 Champions League?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q16" value="A" > Real Madrid<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q16" value="B"> Barcelona<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q16" value="C">  Liverpool<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q16" value="D">  Juventus<br>
+            <input type="button" value="Next"  name ="Q.17" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.16" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.17">
+<b>Q.17   Which athlete among these has highest number of Instagram followers?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q17" value="A" >Lionel Messi<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q17" value="B">   Roger Federer<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q17" value="C">Lebron James<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q17" value="D">  Cristiano Ronaldo<br>
+            <input type="button" value="Next"  name ="Q.18" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.17" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.18">
+
+ <b>Q.18  Which of these goalkeepers have won the Golden Ball in Football World Cup?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q18" value="A" >  Victor Valdes<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q18" value="B">Oliver Kahn<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q18" value="C">Manuel Neuer<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q18" value="D">  Hugo Lloris<br>
+            <input type="button" value="Next"  name ="Q.19" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.18" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.19">
+<b>Q.19     Which was the first non test playing team to beat India in international cricket?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q19" value="A" >Canada<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q19" value="B">Sri Lanka<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q19" value="C">Zimbabwe<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q19" value="D"> Kenya<br>
+            <input type="button" value="Next"  name ="Q.20" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.19" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.20">
+<b>Q.20   How many Olympic medals India have till date?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q20" value="A" >40<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q20" value="B">36<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q20" value="C">23<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q20" value="D"> 28<br>
+            <input type="button" value="Next"  name ="Q.21" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.20" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.21">
+<b>Q.21  Which Indian players have won Gold Medal in the Olympics?   
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q21" value="A" >Rajyavardhan Singh Rathore <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q21" value="B">Karnam Malleshwari<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q21" value="C">Abhinav Bindra <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q21" value="D">  M. M. Somaya<br>
+            <input type="button" value="Next"  name ="Q.22" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.21" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.22">
+<b>Q.22   Which of the following captains have led their team to victory in Ranji Trophy Tournament? 
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q22" value="A" > Faiz Fazal<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q22" value="B">Umesh Yadav<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q22" value="C">Aditya Tare<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q22" value="D"> Surya Kumar Yadav<br>
+            <input type="button" value="Next"  name ="Q.23" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.22" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.23">
+<b>Q.23   The National Sports Day is celebrated on which day?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q23" value="A" >29th September<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q23" value="B">14th November <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q23" value="C"> 29th August <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q23" value="D"> 29th July<br>
+            <input type="button" value="Next"  name ="Q.24" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.23" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.24">
+<b>Q.24   'Ace Against Odds' is an autobiography of which sports person ?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q24" value="A" >Vishwanathan Anand <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q24" value="B"> Sania Mirza <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q24" value="C">Abhinav Bindra <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q24" value="D">Anjali Bhagwat<br>
+            <input type="button" value="Next"  name ="Q.25" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.24" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.25">
+<b>Q.25  In what sport would one find an Albion round?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q25" value="A" > croquet<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q25" value="B">badminton<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q25" value="C"> tennis<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q25" value="D">  archery<br>
+            <input type="button" value="Next"  name ="Q.26" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.25" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.26">
+<b>Q.26   Which Players scored more than 3 centuries in IPL history? 
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q26" value="A" >Shane  Watson<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q26" value="B"> AB Devilliers       <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q26" value="C">Table Tennis Mixed Doubles<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q26" value="D">Chris Gayle
+<br>
+            <input type="button" value="Next"  name ="Q.27" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.26" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.27">
+<b>Q.27   Which among these players have won "Best FIFA Women Player" award? 
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q27" value="A" >Carli Lloyd <br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q27" value="B">Marta Viera da Silva<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q27" value="C">Lieke Martens	<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q27" value="D"> Ada Hegerberg<br>
+            <input type="button" value="Next"  name ="Q.28" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.27" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.28">
+<b>Q.28   Which of the following players have won UEFA Champions League at least once?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q28" value="A" >Ronaldo Nazario<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q28" value="B"> Genarro Gattuso	<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q28" value="C">Ole Gunnar Solskjær	<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q28" value="D"> Pavel Nedved<br>
+            <input type="button" value="Next"  name ="Q.29" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.28" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.29">
+<b>Q.29   In 2014 World Cup, which of these players did not represent their country of birth?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q29" value="A" >Jerome Boateng<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q29" value="B">Gonzalo Higuain<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q29" value="C">Diego Costa	<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q29" value="D"> Thiago Alcântara<br>
+            <input type="button" value="Next"  name ="Q.30" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.29" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.30">
+<b>Q.30  Which one of the following teams was defeated by India to win the Women's Hockey Asia Cup title, 2017?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q30" value="A" >Japan	<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q30" value="B">China<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q30" value="C">South Korea<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q30" value="D"> Pakistan<br>
+            <input type="button" value="Next"  name ="Q.31" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.30" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+        <div class="question hidden" id="Q.31">
+<b>Q.31   Who are the top 2 players hitting maximum number of sixes in IPL 2019? 
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q31" value="A" >Chris Gayle<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q31" value="B">Rishab Pant<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q31" value="C">Hardik Pandya<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q31" value="D"> Andre Russel<br>
+            <input type="button" value="Next"  name ="Q.32" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.31" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.32">
+<b>Q.32   Who scored fastest 150 runs in ODI and in how many balls?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q32" value="A" >Rohit Sharma<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q32" value="B">42 Balls<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q32" value="C">AB de Villiers<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q32" value="D"> 31 Balls<br>
+            <input type="button" value="Next"  name ="Q.33" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.32" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.33">
+<b>Q.33   Which player/s holds the record for more than 250 sixes in ODI cricket history? 
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q33" value="A" >Chris Gayle<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q33" value="B">Shahid Afridi<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q33" value="C">Sanath Jaysuriya<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q33" value="D"> Sachin Tendulkar<br>
+            <input type="button" value="Next"  name ="Q.34" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.33" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.34">
+<b>Q.34   Which players are in the top two highest partnership by run In ODI cricket history?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q34" value="A" >Sourav Ganguly, Rahul Dravid<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q34" value="B"> John Campbell, Shai Hope<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q34" value="C">Marlon Samuels, Chris Gayle<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q34" value="D"> Sachin Tendulkar, Rahul Dravid<br>
+            <input type="button" value="Next"  name ="Q.35" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.34" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+
+        <div class="question hidden" id="Q.35">
+<b>Q.35   Which player scored highest number of goals in international hockey and how many?
+</b><br><br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q35" value="A" >Shahbaz Ahmed<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q35" value="B">348 goals<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q35" value="C">Sohail Abbas<br>
+            <input type="checkbox"  style="height: 20px; width:20px;"name="q35" value="D"> 328 goals<br>
+            <input type="button" value="Next"  name ="Q.36" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            <input type="button" value="Clear Response" name ="Q.35" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        </div>
+
+        <div class="question hidden" id="Q.36">
+            <p style="font-style: italic">Sunil Chhetri (born 3 August 1984) is an Indian professional footballer who plays as a striker or winger and captains both the Indian Super League side Bengaluru FC and the Indian national team. Popularly known as Captain Fantastic, he is both the most-capped player and all-time top goalscorer for the Indian national team. He is the current captain of the national team. Sunil Chhetri was named an 'Asian Icon' by AFC on his 34th birthday.
+Chhetri began his professional career at Mohun Bagan in 2002. He then moved to JCT where he scored 21 goals in 48 games. He signed for the Kansas City Wizards of Major League Soccer in 2010, becoming the third player from the subcontinent of note to go abroad.
+He helped India win the 2007 Nehru Cup, 2009 Nehru Cup, the 2012 Nehru Cup as well as the 2011 SAFF Championship. He was also one of India's best players during the 2008 AFC Challenge Cup in which India won the tournament and thus qualified for their first AFC Asian Cup in 27 years.
+</p>
+        <b>Q.36 Sunil Chettri has the 2nd highest number of goals in international matches among active players after Cristiano Ronaldo. What’s his total number of International goals?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q36" value="A" > 67<br>
+        <input type="checkbox" name="q36" value="B">71<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q36" value="C"> 75<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q36" value="D"> 80<br>
+        <input type="button" value="Next"  name ="Q.37" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.36" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+     <div class="question hidden" id="Q.37">
+            <p style="font-style: italic">Sunil Chhetri (born 3 August 1984) is an Indian professional footballer who plays as a striker or winger and captains both the Indian Super League side Bengaluru FC and the Indian national team. Popularly known as Captain Fantastic, he is both the most-capped player and all-time top goalscorer for the Indian national team. He is the current captain of the national team. Sunil Chhetri was named an 'Asian Icon' by AFC on his 34th birthday.
+Chhetri began his professional career at Mohun Bagan in 2002. He then moved to JCT where he scored 21 goals in 48 games. He signed for the Kansas City Wizards of Major League Soccer in 2010, becoming the third player from the subcontinent of note to go abroad.
+He helped India win the 2007 Nehru Cup, 2009 Nehru Cup, the 2012 Nehru Cup as well as the 2011 SAFF Championship. He was also one of India's best players during the 2008 AFC Challenge Cup in which India won the tournament and thus qualified for their first AFC Asian Cup in 27 years.
+</p>
+
+<b>Q.37 Chhetri has also been named AIFF Player of the Year a record _____ times.</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q37" value="A" > 5<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q37" value="B"> 6<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q37" value="C"> 7<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q37" value="D"> 8<br>
+        <input type="button" value="Next"  name ="Q.38" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.37" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+</div>
+
+
+     <div class="question hidden" id="Q.38">
+            <p style="font-style: italic">Sunil Chhetri (born 3 August 1984) is an Indian professional footballer who plays as a striker or winger and captains both the Indian Super League side Bengaluru FC and the Indian national team. Popularly known as Captain Fantastic, he is both the most-capped player and all-time top goalscorer for the Indian national team. He is the current captain of the national team. Sunil Chhetri was named an 'Asian Icon' by AFC on his 34th birthday.
+Chhetri began his professional career at Mohun Bagan in 2002. He then moved to JCT where he scored 21 goals in 48 games. He signed for the Kansas City Wizards of Major League Soccer in 2010, becoming the third player from the subcontinent of note to go abroad.
+He helped India win the 2007 Nehru Cup, 2009 Nehru Cup, the 2012 Nehru Cup as well as the 2011 SAFF Championship. He was also one of India's best players during the 2008 AFC Challenge Cup in which India won the tournament and thus qualified for their first AFC Asian Cup in 27 years.
+</p>
+
+<b>Q.38 How many times has India qualified for FIFA World Cup?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q38" value="A" > 0<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q38" value="B"> 1<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q38" value="C"> 2<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q38" value="D"> 3<br>
+        <input type="button" value="Next"  name ="Q.39" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.38" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+</div>
+
+     <div class="question hidden" id="Q.39">
+            <p style="font-style: italic">Sunil Chhetri (born 3 August 1984) is an Indian professional footballer who plays as a striker or winger and captains both the Indian Super League side Bengaluru FC and the Indian national team. Popularly known as Captain Fantastic, he is both the most-capped player and all-time top goalscorer for the Indian national team. He is the current captain of the national team. Sunil Chhetri was named an 'Asian Icon' by AFC on his 34th birthday.
+Chhetri began his professional career at Mohun Bagan in 2002. He then moved to JCT where he scored 21 goals in 48 games. He signed for the Kansas City Wizards of Major League Soccer in 2010, becoming the third player from the subcontinent of note to go abroad.
+He helped India win the 2007 Nehru Cup, 2009 Nehru Cup, the 2012 Nehru Cup as well as the 2011 SAFF Championship. He was also one of India's best players during the 2008 AFC Challenge Cup in which India won the tournament and thus qualified for their first AFC Asian Cup in 27 years.
+</p>
+
+<b>Q.39 What is India’s current FIFA world ranking? </b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q39" value="A" > 97<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q39" value="B"> 110<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q39" value="C"> 115<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q39" value="D"> 103<br>
+        <input type="button" value="Next"  name ="Q.40" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.39" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+     <div class="question hidden" id="Q.40">
+            <p style="font-style: italic">Sunil Chhetri (born 3 August 1984) is an Indian professional footballer who plays as a striker or winger and captains both the Indian Super League side Bengaluru FC and the Indian national team. Popularly known as Captain Fantastic, he is both the most-capped player and all-time top goalscorer for the Indian national team. He is the current captain of the national team. Sunil Chhetri was named an 'Asian Icon' by AFC on his 34th birthday.
+Chhetri began his professional career at Mohun Bagan in 2002. He then moved to JCT where he scored 21 goals in 48 games. He signed for the Kansas City Wizards of Major League Soccer in 2010, becoming the third player from the subcontinent of note to go abroad.
+He helped India win the 2007 Nehru Cup, 2009 Nehru Cup, the 2012 Nehru Cup as well as the 2011 SAFF Championship. He was also one of India's best players during the 2008 AFC Challenge Cup in which India won the tournament and thus qualified for their first AFC Asian Cup in 27 years.
+</p>
+
+<b>Q.40 Which among these players has second highest number of goals in Indian Squad after Chettri? </b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q40" value="A" > Jeje Lalpekhlua<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q40" value="B">Lallianzuala Chhangte<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q40" value="C"> Manvir Singh<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q40" value="D">Sandesh Jhingan<br>
+        <input type="button" value="Next"  name ="Q.41" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.40" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+<div class = "question hidden" id="Q.41">
+She (born 3 December 1982) is an Indian cricketer and the captain of the Indian women's cricket team in Tests and ODI.Often regarded as one of the greatest batswomen to have ever played the game, she is the highest run-scorer in women's international cricket and the only female cricketer to surpass the 6,000 run mark in WODIs.She is the first player to score seven consecutive 50s in ODIs. She also holds the record for most half-centuries in WODIs.In June 2018 during the 2018 Women's Twenty20 Asia Cup, she became the first player from India (either male or female) to score 2000 runs in T20Is, and also became the first woman cricketer to reach 2002 WT20I runs. 
+<br><b>Q.41 Guess the name of the player……….</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q41" value="A" > Harmanpreet Kaur <br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q41" value="B">Mithali raj <br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q41" value="C"> Smriti Mandhana <br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q41" value="D">Nuzhat Parveen<br>
+        <input type="button" value="Next"  name ="Q.42" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.41" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+<div class = "question hidden" id ="Q.42">
+She (born 3 December 1982) is an Indian cricketer and the captain of the Indian women's cricket team in Tests and ODI.Often regarded as one of the greatest batswomen to have ever played the game, she is the highest run-scorer in women's international cricket and the only female cricketer to surpass the 6,000 run mark in WODIs.She is the first player to score seven consecutive 50s in ODIs. She also holds the record for most half-centuries in WODIs.In June 2018 during the 2018 Women's Twenty20 Asia Cup, she became the first player from India (either male or female) to score 2000 runs in T20Is, and also became the first woman cricketer to reach 2002 WT20I runs.
+<br><b>Q.42 What is her jersey number......</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q42" value="A" > 8<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q42" value="B">6<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q42" value="C"> 7<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q42" value="D">5<br>
+        <input type="button" value="Next"  name ="Q.43" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.42" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+<div class = "question hidden" id ="Q.43">
+She (born 3 December 1982) is an Indian cricketer and the captain of the Indian women's cricket team in Tests and ODI.Often regarded as one of the greatest batswomen to have ever played the game, she is the highest run-scorer in women's international cricket and the only female cricketer to surpass the 6,000 run mark in WODIs.She is the first player to score seven consecutive 50s in ODIs. She also holds the record for most half-centuries in WODIs.In June 2018 during the 2018 Women's Twenty20 Asia Cup, she became the first player from India (either male or female) to score 2000 runs in T20Is, and also became the first woman cricketer to reach 2002 WT20I runs.
+
+<br><b>Q.43 At what age she was selected for Indian cricket team?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q43" value="A" > 15<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q43" value="B">16<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q43" value="C"> 17<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q43" value="D">19<br>
+        <input type="button" value="Next"  name ="Q.44" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.43" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+<div class = "question hidden" id ="Q.44">
+She (born 3 December 1982) is an Indian cricketer and the captain of the Indian women's cricket team in Tests and ODI.Often regarded as one of the greatest batswomen to have ever played the game, she is the highest run-scorer in women's international cricket and the only female cricketer to surpass the 6,000 run mark in WODIs.She is the first player to score seven consecutive 50s in ODIs. She also holds the record for most half-centuries in WODIs.In June 2018 during the 2018 Women's Twenty20 Asia Cup, she became the first player from India (either male or female) to score 2000 runs in T20Is, and also became the first woman cricketer to reach 2002 WT20I runs.
+<br><b>Q.44She holds the record for most consecutive fifties by a player. What’s the number?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q44" value="A" > 5<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q44" value="B">7<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q44" value="C">9<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q44" value="D">12<br>
+        <input type="button" value="Next"  name ="Q.45" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.44" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+<div class = "question hidden" id ="Q.45">
+She (born 3 December 1982) is an Indian cricketer and the captain of the Indian women's cricket team in Tests and ODI.Often regarded as one of the greatest batswomen to have ever played the game, she is the highest run-scorer in women's international cricket and the only female cricketer to surpass the 6,000 run mark in WODIs.She is the first player to score seven consecutive 50s in ODIs. She also holds the record for most half-centuries in WODIs.In June 2018 during the 2018 Women's Twenty20 Asia Cup, she became the first player from India (either male or female) to score 2000 runs in T20Is, and also became the first woman cricketer to reach 2002 WT20I runs.
+">
+She (born 3 December 1982) is an Indian cricketer and the captain of the Indian women's cricket team in Tests and ODI.Often regarded as one of the greatest batswomen to have ever played the game, she is the highest run-scorer in women's international cricket and the only female cricketer to surpass the 6,000 run mark in WODIs.She is the first player to score seven consecutive 50s in ODIs. She also holds the record for most half-centuries in WODIs.In June 2018 during the 2018 Women's Twenty20 Asia Cup, she became the first player from India (either male or female) to score 2000 runs in T20Is, and also became the first woman cricketer to reach 2002 WT20I runs.
+
+<b>Q.45 She holds the record for playing the most consecutive Women's One Day Internationals for a team. Tell the number. </b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q45" value="A" > 109<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q45" value="B">110<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q45" value="C">113<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q45" value="D">106<br>
+        <input type="button" value="Next"  name ="Q.46" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.45" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+<div class="question hidden" id="Q.46"> 
+<p>
+Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+<br><br>Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+<br><br>Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. <br><br>Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+<br><br>Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.</p>
+
+
+<b>Q.46  Which is the topic sentence in the first paragraph?. </b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q46" value="A" > The first sentence: 'The Olympic Games are a major international event which includes both summer and winter sports. '<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q46" value="B">The second sentence beginning: 'The modern Olympic Committee (IOC) introduced the Winter Games for winter and ice sports ;'<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q46" value="C">The third sentence: 'The Summer Olympic Games are held every four years, as are the Winter Games.'<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q46" value="D">The fourth sentence: 'This means that every two years there is either a summer or winter Olympics.'<br>
+        <input type="button" value="Next"  name ="Q.47" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.46" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+<div class="question hidden" id="Q.47"> 
+<p>
+Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+<br><br>Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+<br><br>Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. <br><br>Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+<br><br>Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.</p>
+
+
+<b>Q.47  If you were to writing headings for each paragraph, what heading would be appropriate for the third paragraph? </b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q47" value="A" >  Women and the Olympics<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q47" value="B">Where the Olympics are held<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q47" value="C">The first modern Olympic Games<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q47" value="D">History of the Olympic Games<br>
+        <input type="button" value="Next"  name ="Q.48" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.47" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+<div class="question hidden" id="Q.48"> 
+<p>
+Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+<br><br>Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+<br><br>Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. <br><br>Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+<br><br>Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.</p>
+
+<b>Q.48 What is the topic sentence in the fourth paragraph?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q48" value="A" >  '400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.'<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q48" value="B">'Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers.'<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q48" value="C"> 'The Paralympic Games were set up in 1948.'<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q48" value="D">'The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London.'<br>
+        <input type="button" value="Next"  name ="Q.49" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.48" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+<div class="question hidden" id="Q.49"> 
+<p>
+Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+<br><br>Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+<br><br>Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. <br><br>Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+<br><br>Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.</p>
+
+
+<b>Q.49 What is the closing sentence in the second paragraph?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q49" value="A" >  'The IOC is responsible for choosing the host city for each Olympic Games.'<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q49" value="B">'The Olympic Games offer an opportunity to the host country to show off their city to the world.'<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q49" value="C"> 'Nearly every nation in the world is represented in the Olympic Games.'<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q49" value="D"> 'There are more than 13,000 athletes who compete in the summer and winter Olympics in 33 different sports with a total of almost 400 events.'<br>
+        <input type="button" value="Next"  name ="Q.50" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.49" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+<div class="question hidden" id="Q.50"> 
+<p>
+Para 1: The Olympic Games are a major international event which includes both summer and winter sports. The modern International Olympic Committee (IOC) introduced the Winter Games for winter and ice sports; the Paralympic Games for athletes with a physical disability; and the Youth Games for teenage athletes. The Summer Olympic Games are held every four years, as are the Winter Games. This means that every two years there is either a Summer or Winter Olympics. The Paralympics are held immediately after the Summer and Winter Games.
+<br><br>Para 2: The IOC is responsible for choosing the host city for each Olympic Games. There are more than 13,000 athletes who compete in the Summer and Winter Olympics in 33 different sports with a total of almost 400 events. Nearly every nation in the world is represented in the Olympic Games. The Olympic Games offer an opportunity to the host country to show off their city to the world.
+<br><br>Para 3: The first Olympic Games were held in Olympia, in ancient Greece, from the eighth century BC to the fifth century AD. The first modern games, held by the IOC, were hosted in Athens in 1896. There were fourteen nations represented, and almost 250 athletes took part in 43 events. Women first took part at the Olympic Games which were held in Paris in 1900. <br><br>Para 4: The Paralympic Games were set up in 1948. Sir Ludwig Guttmann organised a sporting event between different hospitals for rehabilitating soldiers. The event, called the Stoke Mandeville Games took place at the same time as the Olympic Games in London. 400 athletes competed in what was called the ‘parallel Olympics’, which later became known as the first Paralympics.
+<br><br>Para 5: The IOC allows nations to compete in the Olympic Games even if they are not sovereign countries in their own right. As a result, colonies and territories such as Bermuda and Hong Kong can compete as separate nations even though they are part of another country.</p>
+
+<b>Q.50  Which paragraph discusses the role of the International Olympic Committee about who can participate in the Olympics?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q50" value="A" > Paragraph 3<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q50" value="B">Paragraph 4<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q50" value="C">Paragraph 5<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q50" value="D"> <br>
+        <input type="button" value="Next"  name ="Q.51" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.50" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+     <div class="question hidden" id="Q.51">
+            <p style="font-style: italic">The modern Olympic Games or Olympics (French: Jeux olympiques[1][2]) are leading international sporting events featuring summer and winter sports competitions in which thousands of athletes from around the world participate in a variety of competitions. The Olympic Games are considered the world's foremost sports competition with more than 200 nations participating.[3] The Olympic Games are held every four years, with the Summer and Winter Games alternating by occurring every four years but two years apart.
+Their creation was inspired by the ancient Olympic Games, which were held in Olympia, Greece, from the 8th century BC to the 4th century AD. Baron Pierre de Coubertin founded the International Olympic Committee (IOC) in 1894, leading to the first modern Games in Athens in 1896. The IOC is the governing body of the Olympic Movement, with the Olympic Charter defining its structure and authority.
+The evolution of the Olympic Movement during the 20th and 21st centuries has resulted in several changes to the Olympic Games. Some of these adjustments include the creation of the Winter Olympic Games for snow and ice sports, the Paralympic Games for athletes with a disability, the Youth Olympic Games for athletes aged 14 to 18, the five Continental games (Pan American, African, Asian, European, and Pacific), and the World Games for sports that are not contested in the Olympic Games. The Deaflympics and Special Olympics are also endorsed by the IOC. The IOC has had to adapt to a variety of economic, political, and technological advancements. The abuse of amateur rules by the Eastern Bloc nations prompted the IOC to shift away from pure amateurism, as envisioned by Coubertin, to allowing participation of professional athletes. The growing importance of mass media created the issue of corporate sponsorship and commercialisation of the Games. World wars led to the cancellation of the 1916, 1940, and 1944 Games. Large boycotts during the Cold War limited participation in the 1980 and 1984 Games.[4] 
+</p>
+<b>Q.51 Blue color represents which Continent in Olympics ring?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q51" value="A" > Europe<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q51" value="B">Asia<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q51" value="C">America<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q51" value="D"> Oceania<br>
+        <input type="button" value="Next"  name ="Q.51" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.52" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+     <div class="question hidden" id="Q.52">
+            <p style="font-style: italic">The modern Olympic Games or Olympics (French: Jeux olympiques[1][2]) are leading international sporting events featuring summer and winter sports competitions in which thousands of athletes from around the world participate in a variety of competitions. The Olympic Games are considered the world's foremost sports competition with more than 200 nations participating.[3] The Olympic Games are held every four years, with the Summer and Winter Games alternating by occurring every four years but two years apart.
+Their creation was inspired by the ancient Olympic Games, which were held in Olympia, Greece, from the 8th century BC to the 4th century AD. Baron Pierre de Coubertin founded the International Olympic Committee (IOC) in 1894, leading to the first modern Games in Athens in 1896. The IOC is the governing body of the Olympic Movement, with the Olympic Charter defining its structure and authority.
+The evolution of the Olympic Movement during the 20th and 21st centuries has resulted in several changes to the Olympic Games. Some of these adjustments include the creation of the Winter Olympic Games for snow and ice sports, the Paralympic Games for athletes with a disability, the Youth Olympic Games for athletes aged 14 to 18, the five Continental games (Pan American, African, Asian, European, and Pacific), and the World Games for sports that are not contested in the Olympic Games. The Deaflympics and Special Olympics are also endorsed by the IOC. The IOC has had to adapt to a variety of economic, political, and technological advancements. The abuse of amateur rules by the Eastern Bloc nations prompted the IOC to shift away from pure amateurism, as envisioned by Coubertin, to allowing participation of professional athletes. The growing importance of mass media created the issue of corporate sponsorship and commercialisation of the Games. World wars led to the cancellation of the 1916, 1940, and 1944 Games. Large boycotts during the Cold War limited participation in the 1980 and 1984 Games.[4] 
+</p>
+
+<b>Q.52  Yellow color represents which Continent in Olympics ring?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q52" value="A" > Europe<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q52" value="B">Asia<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q52" value="C">America<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q52" value="D"> Oceania<br>
+        <input type="button" value="Next"  name ="Q.53" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.52" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+     <div class="question hidden" id="Q.53">
+            <p style="font-style: italic">The modern Olympic Games or Olympics (French: Jeux olympiques[1][2]) are leading international sporting events featuring summer and winter sports competitions in which thousands of athletes from around the world participate in a variety of competitions. The Olympic Games are considered the world's foremost sports competition with more than 200 nations participating.[3] The Olympic Games are held every four years, with the Summer and Winter Games alternating by occurring every four years but two years apart.
+Their creation was inspired by the ancient Olympic Games, which were held in Olympia, Greece, from the 8th century BC to the 4th century AD. Baron Pierre de Coubertin founded the International Olympic Committee (IOC) in 1894, leading to the first modern Games in Athens in 1896. The IOC is the governing body of the Olympic Movement, with the Olympic Charter defining its structure and authority.
+The evolution of the Olympic Movement during the 20th and 21st centuries has resulted in several changes to the Olympic Games. Some of these adjustments include the creation of the Winter Olympic Games for snow and ice sports, the Paralympic Games for athletes with a disability, the Youth Olympic Games for athletes aged 14 to 18, the five Continental games (Pan American, African, Asian, European, and Pacific), and the World Games for sports that are not contested in the Olympic Games. The Deaflympics and Special Olympics are also endorsed by the IOC. The IOC has had to adapt to a variety of economic, political, and technological advancements. The abuse of amateur rules by the Eastern Bloc nations prompted the IOC to shift away from pure amateurism, as envisioned by Coubertin, to allowing participation of professional athletes. The growing importance of mass media created the issue of corporate sponsorship and commercialisation of the Games. World wars led to the cancellation of the 1916, 1940, and 1944 Games. Large boycotts during the Cold War limited participation in the 1980 and 1984 Games.[4] 
+</p>
+
+<b>Q.53 Black color represents which Continent in Olympics ring?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q53" value="A" > Oceania<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q53" value="B">Asia<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q53" value="C">Africa<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q53" value="D"> America<br>
+        <input type="button" value="Next"  name ="Q.54" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.53" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+     <div class="question hidden" id="Q.54">
+            <p style="font-style: italic">The modern Olympic Games or Olympics (French: Jeux olympiques[1][2]) are leading international sporting events featuring summer and winter sports competitions in which thousands of athletes from around the world participate in a variety of competitions. The Olympic Games are considered the world's foremost sports competition with more than 200 nations participating.[3] The Olympic Games are held every four years, with the Summer and Winter Games alternating by occurring every four years but two years apart.
+Their creation was inspired by the ancient Olympic Games, which were held in Olympia, Greece, from the 8th century BC to the 4th century AD. Baron Pierre de Coubertin founded the International Olympic Committee (IOC) in 1894, leading to the first modern Games in Athens in 1896. The IOC is the governing body of the Olympic Movement, with the Olympic Charter defining its structure and authority.
+The evolution of the Olympic Movement during the 20th and 21st centuries has resulted in several changes to the Olympic Games. Some of these adjustments include the creation of the Winter Olympic Games for snow and ice sports, the Paralympic Games for athletes with a disability, the Youth Olympic Games for athletes aged 14 to 18, the five Continental games (Pan American, African, Asian, European, and Pacific), and the World Games for sports that are not contested in the Olympic Games. The Deaflympics and Special Olympics are also endorsed by the IOC. The IOC has had to adapt to a variety of economic, political, and technological advancements. The abuse of amateur rules by the Eastern Bloc nations prompted the IOC to shift away from pure amateurism, as envisioned by Coubertin, to allowing participation of professional athletes. The growing importance of mass media created the issue of corporate sponsorship and commercialisation of the Games. World wars led to the cancellation of the 1916, 1940, and 1944 Games. Large boycotts during the Cold War limited participation in the 1980 and 1984 Games.[4] 
+</p>
+
+<b>Q.54 Black color represents which Continent in Olympics ring?</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q54" value="A" > Europe<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q54" value="B">Africa<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q54" value="C">Oceania<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q54" value="D"> America<br>
+        <input type="button" value="Next"  name ="Q.55" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+        <input type="button" value="Clear Response" name ="Q.54" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+     <div class="question hidden" id="Q.55">
+            <p style="font-style: italic">The modern Olympic Games or Olympics (French: Jeux olympiques[1][2]) are leading international sporting events featuring summer and winter sports competitions in which thousands of athletes from around the world participate in a variety of competitions. The Olympic Games are considered the world's foremost sports competition with more than 200 nations participating.[3] The Olympic Games are held every four years, with the Summer and Winter Games alternating by occurring every four years but two years apart.
+Their creation was inspired by the ancient Olympic Games, which were held in Olympia, Greece, from the 8th century BC to the 4th century AD. Baron Pierre de Coubertin founded the International Olympic Committee (IOC) in 1894, leading to the first modern Games in Athens in 1896. The IOC is the governing body of the Olympic Movement, with the Olympic Charter defining its structure and authority.
+The evolution of the Olympic Movement during the 20th and 21st centuries has resulted in several changes to the Olympic Games. Some of these adjustments include the creation of the Winter Olympic Games for snow and ice sports, the Paralympic Games for athletes with a disability, the Youth Olympic Games for athletes aged 14 to 18, the five Continental games (Pan American, African, Asian, European, and Pacific), and the World Games for sports that are not contested in the Olympic Games. The Deaflympics and Special Olympics are also endorsed by the IOC. The IOC has had to adapt to a variety of economic, political, and technological advancements. The abuse of amateur rules by the Eastern Bloc nations prompted the IOC to shift away from pure amateurism, as envisioned by Coubertin, to allowing participation of professional athletes. The growing importance of mass media created the issue of corporate sponsorship and commercialisation of the Games. World wars led to the cancellation of the 1916, 1940, and 1944 Games. Large boycotts during the Cold War limited participation in the 1980 and 1984 Games.[4] 
+</p>
+
+<b>Q.55 Red color represents which Continent in Olympics ring?
+</b><br><br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q55" value="A" > Europe<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q55" value="B">Asia<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q55" value="C">America<br>
+        <input type="checkbox"  style="height: 20px; width:20px;"name="q55" value="D"> Oceania<br>
+        <input type="button" value="Clear Response" name ="Q.55" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+    </div>
+
+
+
+
+
+        <div class="qindex">
+            <input type="button" value="Q.1" onclick="Jumptoq(event)">
+            <input type="button" value="Q.2" onclick="Jumptoq(event)">
+            <input type="button" value="Q.3" onclick="Jumptoq(event)">
+            <input type="button" value="Q.4" onclick="Jumptoq(event)">
+            <input type="button" value="Q.5" onclick="Jumptoq(event)">
+            <input type="button" value="Q.6" onclick="Jumptoq(event)" >
+            <input type="button" value="Q.7" onclick="Jumptoq(event)">
+            <input type="button" value="Q.8" onclick="Jumptoq(event)">
+            <input type="button" value="Q.9" onclick="Jumptoq(event)">
+            <input type="button" value="Q.10" onclick="Jumptoq(event)">
+            <input type="button" value="Q.11" onclick="Jumptoq(event)">
+            <input type="button" value="Q.12" onclick="Jumptoq(event)">
+            <input type="button" value="Q.13" onclick="Jumptoq(event)">
+            <input type="button" value="Q.14" onclick="Jumptoq(event)">
+            <input type="button" value="Q.15" onclick="Jumptoq(event)">
+            <input type="button" value="Q.16" onclick="Jumptoq(event)">
+            <input type="button" value="Q.17" onclick="Jumptoq(event)">
+            <input type="button" value="Q.18" onclick="Jumptoq(event)">
+            <input type="button" value="Q.19" onclick="Jumptoq(event)">
+            <input type="button" value="Q.20" onclick="Jumptoq(event)">
+            <input type="button" value="Q.21" onclick="Jumptoq(event)">
+            <input type="button" value="Q.22" onclick="Jumptoq(event)">
+            <input type="button" value="Q.23" onclick="Jumptoq(event)">
+            <input type="button" value="Q.24" onclick="Jumptoq(event)">
+            <input type="button" value="Q.25" onclick="Jumptoq(event)">
+            <input type="button" value="Q.26" onclick="Jumptoq(event)">
+            <input type="button" value="Q.27" onclick="Jumptoq(event)">
+            <input type="button" value="Q.28" onclick="Jumptoq(event)">
+            <input type="button" value="Q.29" onclick="Jumptoq(event)">
+            <input type="button" value="Q.30" onclick="Jumptoq(event)">
+            <input type="button" value="Q.31" onclick="Jumptoq(event)">
+            <input type="button" value="Q.32" onclick="Jumptoq(event)">
+            <input type="button" value="Q.33" onclick="Jumptoq(event)">
+            <input type="button" value="Q.34" onclick="Jumptoq(event)">
+            <input type="button" value="Q.35" onclick="Jumptoq(event)">
+            <input type="button" value="Q.36" onclick="Jumptoq(event)" >
+            <input type="button" value="Q.37" onclick="Jumptoq(event)">
+            <input type="button" value="Q.38" onclick="Jumptoq(event)">
+            <input type="button" value="Q.39" onclick="Jumptoq(event)">
+            <input type="button" value="Q.40" onclick="Jumptoq(event)">
+            <input type="button" value="Q.41" onclick="Jumptoq(event)">
+            <input type="button" value="Q.42" onclick="Jumptoq(event)">
+            <input type="button" value="Q.43" onclick="Jumptoq(event)">
+            <input type="button" value="Q.44" onclick="Jumptoq(event)">
+            <input type="button" value="Q.45" onclick="Jumptoq(event)">
+            <input type="button" value="Q.46" onclick="Jumptoq(event)">
+            <input type="button" value="Q.47" onclick="Jumptoq(event)">
+            <input type="button" value="Q.48" onclick="Jumptoq(event)">
+            <input type="button" value="Q.49" onclick="Jumptoq(event)">
+            <input type="button" value="Q.50" onclick="Jumptoq(event)">
+            <input type="button" value="Q.51" onclick="Jumptoq(event)">
+            <input type="button" value="Q.52" onclick="Jumptoq(event)">
+            <input type="button" value="Q.53" onclick="Jumptoq(event)">
+            <input type="button" value="Q.54" onclick="Jumptoq(event)">
+            <input type="button" value="Q.55" onclick="Jumptoq(event)">
+        </div>
+        <div style="text-align: center;margin-top:3%"><input type="submit" value="Submit" style="margin-left:1%;text-align:center;align-self: center;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color:black;"></div>
+        
+    </form>
+</div>
+   
+</body>
+</html> 

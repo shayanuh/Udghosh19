@@ -1,0 +1,54 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="udg_champ/css/style.css">
+<h2>Udghosh Login - Register</h2>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="/766d1e56a1f66f223807ad61d106097flo" method="POST">
+			<h1>Login Now</h1>
+			<input type="text" name="uname" placeholder="Username" required minlength="8">
+			<input type="password" name="upassword" placeholder="Password" minlength="8" required>
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="/22d9e9c7277c9857eedb195d410018d6rs" method="POST">
+			<%= msg %>
+            <h1>Create Account Step 2</h1>
+            <div style="display: none;">
+	            <input type="text" name="name" value= <%= name %> >
+	            <input type="email" name="mail" value= <%= mail %> >
+	            <input type="tel" name="contact" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value= <%= phone %> >
+	            <input type="password" name="password" value= <%= password %> minlength="8" required>
+        	</div>
+			<input type="text" name="code" placeholder="Code (min length: 6)" required minlength="6">
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Login Steps</h1>
+				<p>
+					Enter the credentials to login to Udghosh Events Managment Portal.
+				</p>
+				<button class="ghost" id="signIn">Sign Up</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Registration Steps</h1>
+				<p>
+					Enter the Credentials as specified to register to Udghosh.
+				</p>
+				<a style="color: white" href="Steps.pdf" target="_blank" class="button big special">Registration Steps</a>
+				<button class="ghost" id="signUp">Login</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+	<p>
+		&copy; Udghosh'19
+	</p>
+</footer>
+
+<script src="udg_champ/js/style.js"></script>

@@ -1,0 +1,810 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="ca/favicon/logo.png" />
+
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color:black;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+.hidden{
+    display:none;
+}
+.question {
+    margin-left:10%;
+    margin-top:8%;
+    background-color:skyblue;
+    
+    border-radius:10px;
+    border:none;
+    padding:4%;
+    margin-right:10%;
+    
+}
+input[type=radio] {
+    /* border: 0px;
+    width: 3%;
+    height: 2em; */
+    -ms-transform: scale(2); /* IE 9 */
+    -webkit-transform: scale(2); /* Chrome, Safari, Opera */
+    transform: scale(2);
+    margin-right: 1%;
+}
+
+.qindex
+{
+    text-align: justify;
+    margin-left:10%;
+    margin-right:10%;
+    margin-top:5%;
+}
+.qindex input[type=button]
+{
+    text-align: center;
+    padding:1% 2%;
+    border:none;
+    border-radius:5px;
+    width:6.00%;
+    color:black;
+    font-weight: bold;
+    /* background-color:grey; */
+    margin-left:.001%;
+    margin-right:.001%;
+    margin-bottom: 1%;
+}
+.qindex input[type=button]:hover{
+    background-color: black;
+    color:white;
+    
+    
+}
+
+.question input[type=button]:hover{
+    background-color: black;
+}
+.attempted
+{
+    background-color: green;
+}
+.main {
+  margin-left: 20%; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+</style>
+<script>
+    function startTimer(duration, display) {
+    var start = Date.now(),
+        diff,
+        minutes,
+        seconds;
+    function timer() {
+        // get the number of seconds that have elapsed since 
+        // startTimer() was called
+        diff = duration - (((Date.now() - start) / 1000) | 0);
+
+        // does the same job as parseInt truncates the float
+        minutes = (diff / 60) | 0;
+        seconds = (diff % 60) | 0;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds; 
+
+        if (diff <= 0) {
+            // add one second so that the count down starts at the full duration
+            // example 05:00 not 04:59
+            
+            document.getElementById("form").submit()
+        }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 20,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+     {
+
+var clockElement = document.getElementById( "clock" );
+
+function updateClock ( clock ) {
+  clock.innerHTML = new Date().toLocaleTimeString();
+}
+
+setInterval(function () {
+    updateClock( clockElement );
+}, 1000);
+
+};
+};
+
+
+    function Jumptoq(event)
+    {
+        var qno = event.target.value;
+        for(var i = 0 ;i<40;i++)
+        {
+            document.getElementsByClassName("question")[i].classList.add("hidden")
+        }
+        document.getElementById(qno).classList.remove("hidden")
+    }
+    function next(event)
+    {
+     var qno =event.target.name;
+     for(var i = 0 ;i<40;i++)
+        {
+            document.getElementsByClassName("question")[i].classList.add("hidden")
+        }
+        document.getElementById(qno).classList.remove("hidden") 
+    }
+    function clears(event)
+    {
+        
+        
+        var qno=parseInt(event.target.name[2])
+        if (event.target.name.length>3)
+        qno=parseInt(event.target.name[2]+event.target.name[3])
+        for(var i =0 ; i<4 ;i++)
+        {
+            document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[qno-1].classList.remove("attempted");
+            document.getElementsByClassName("question")[qno-1].getElementsByTagName("input")[i].checked =false;
+        }
+    }
+    function attempt()
+    {
+        for (var i =0 ;i<40;i++)
+        {
+            var q = document.getElementsByClassName("question")[i];
+            console.log( document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[2])
+            for(var j =0 ;j<4;j ++)
+            {
+                if(q.getElementsByTagName("input")[j].checked === true)
+                {
+                  document.getElementsByClassName("qindex")[0].getElementsByTagName("input")[i].classList.add("attempted");  
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body>
+
+<div class="sidenav" style="color:white;">
+    <h1 style="text-align:center;">NOSSQ 2019</h1>
+    <span id="clock"></span><br>
+    <br><hr>
+    
+  <b style="margin-left:1%;font-size:75%">Username : <%= user %> </b>
+  <br><hr>
+  <b style="margin-left:1%;font-size:75%">Time Remaining : <span id="time"></span></b>
+  <br><hr>
+  <b style="margin-left:1%;font-size:75%">Maximum Marks : 80 <span id="time"></span></b>
+  <br><hr>
+  <h2 style="margin-left:3%;">Instructions</h2>
+  <ul style="font-size:100%;margin-right:1%">
+        <li style="text-align: left; color:red;font-weight: bold;">Do not Reload the page.On Reloading the page all your data will be lost and Udghosh will not be responsible for any such loss.</li>
+        <br>
+        <li>All your marked responses will be displayed as <input type=button style="width:10%;border:none;border-radius: 5px;background-color: green"> and unmarked responses as <input type=button style="width:10%;border:none;border-radius: 5px;"></li>
+        <br>
+     
+      <li>The duration of the quiz is 20 minutes.</li><br>
+      <li>There are a total of 40 questions </li><br>
+      <li>All questions are compulsary and carry equal weightage.</li><br>
+      <li>MARKING SCHEME<br><br>
+        <b>Comprehension Type Questions</b><br><br>
+        <ul>
+            <li>For every correct answer, you’ll be awarded +2 marks and for every wrong answer, 1 mark will be deducted.</li><br>
+            <li>Read the paragraph carefully and try to answer questions after that</li><br>
+        </ul>
+        <b>Multiple option correct questions</b><br>
+        <br>
+        <ul>
+            <li>For every correct answer, you’ll be awarded +2 marks and for every wrong answer, 1 mark will be deducted.</li><br>
+            <li>Read the questions carefully and answer only if you know all the correct answers. Partially correct answers will be awarded with a negative mark </li>
+        </ul>
+        
+        
+        </li><br>
+      <li>All the questions are “One or more option correct” questions so be very careful while answering them</li><br>
+      <li>Try to attempt maximum questions you can and Best of Luck!!!!</li><br>
+        <br>
+
+    </ul>
+</div>
+
+<div class="main">
+  <!-- <h1 style="margin-left: 45%;color:rgb(0, 26, 255)">NOSSQ 2019</h1> -->
+    <h3 style="text-align:center;color:black">Stage II - Junior Category</h3>
+    <h4 style="text-align:center;color:black">(Class 6th-8th)</h4>
+    <form method="POST" action="/c470c76sdc3dk93f5c2s86sdsfshuS8bsdcefb7" id="form" onchange="attempt()">
+         <input type="text" style= "display: none" name ="userid" value = <%=user %> 
+        <!-- Multiple choice questions   -->
+        <div class="question" id="Q.1">
+                <b>Q.1 Who are the top 2 players hitting maximum number of sixes in IPL 2019 ?</b><br><br>
+                <input type="checkbox" name="q1" value="A", style="height: 20px; width:20px;" >Chris Gayle<br>
+                <input type="checkbox" name="q1" value="B", style="height: 20px; width:20px;">Rishab Pant
+    <br>
+                <input type="checkbox" name="q1" value="C", style="height: 20px; width:20px;">Hardik Pandya<br>
+                <input type="checkbox" name="q1" value="D", style="height: 20px; width:20px;">  Andre Russel
+    <br>
+                <input type="button" value="Next"  name ="Q.2" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.1" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.2">
+                <b>Q.2 Who scored fastest 150 runs in ODI and in how many balls?</b><br><br>
+                <input type="checkbox" name="q2" value="A", style="height: 20px; width:20px;" >Rohit Sharma<br>
+                <input type="checkbox" name="q2" value="B", style="height: 20px; width:20px;">  42 balls
+    <br>
+                <input type="checkbox" name="q2" value="C", style="height: 20px; width:20px;">AB de Villiers<br>
+                <input type="checkbox" name="q2" value="D", style="height: 20px; width:20px;"> 31 balls <br>
+                <input type="button" value="Next"  name ="Q.3" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.2" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.3">
+                <b>Q.3  Which player/s holds the record for more than 250 sixes in ODI cricket history ?</b><br><br>
+                <input type="checkbox" name="q3" value="A", style="height: 20px; width:20px;" >Chris Gayle <br>
+                <input type="checkbox" name="q3" value="B", style="height: 20px; width:20px;">  Shahid Afridi<br>
+                <input type="checkbox" name="q3" value="C", style="height: 20px; width:20px;">Sanath Jayasuriya<br>
+                <input type="checkbox" name="q3" value="D", style="height: 20px; width:20px;">  Sachin Tendulkar
+    <br>
+                <input type="button" value="Next"  name ="Q.4" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.3" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.4">
+                <b>Q.4  Which players are in the top two highest partnership by run In ODI cricket history?</b><br><br>
+                <input type="checkbox" name="q4" value="A", style="height: 20px; width:20px;" > Sourav Ganguly, Rahul Dravid	<br>
+                <input type="checkbox" name="q4" value="B", style="height: 20px; width:20px;">John Campbell, Shai Hope
+    <br>
+                <input type="checkbox" name="q4" value="C", style="height: 20px; width:20px;">Marlon Samuels, Chris Gayle<br>
+                <input type="checkbox" name="q4" value="D", style="height: 20px; width:20px;">  Sachin Tendulkar, Rahul Dravid
+    <br>
+                <input type="button" value="Next"  name ="Q.5" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.4" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.5">
+                <b>Q.5  Which player scored highest number of goals in international hockey and how many?</b><br><br>
+                <input type="checkbox" name="q5" value="A", style="height: 20px; width:20px;" > 	Shahbaz Ahmed<br>
+                <input type="checkbox" name="q5" value="B", style="height: 20px; width:20px;">348 goals
+    <br>
+                <input type="checkbox" name="q5" value="C", style="height: 20px; width:20px;"> Sohail Abbas<br>
+                <input type="checkbox" name="q5" value="D", style="height: 20px; width:20px;"> 328 goals
+    <br>
+                <input type="button" value="Next"  name ="Q.6" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.5" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.6">
+                <b>Q.6 Which Players scored more than 3 centuries in IPL history ?</b><br><br>
+                <input type="checkbox" name="q6" value="A", style="height: 20px; width:20px;" > Shane  Watson<br>
+                <input type="checkbox" name="q6" value="B", style="height: 20px; width:20px;"> Virat Kohli
+    <br>
+                <input type="checkbox" name="q6" value="C", style="height: 20px; width:20px;">AB Devilliers <br>
+                <input type="checkbox" name="q6" value="D", style="height: 20px; width:20px;"> Chris Gayle<br>
+                <input type="button" value="Next"  name ="Q.7" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.6" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.7">
+                <b>Q.7 Which among these players have won “Best FIFA Women Player” award? </b><br><br>
+                <input type="checkbox" name="q7" value="A", style="height: 20px; width:20px;" >Carli Lloyd<br>
+                <input type="checkbox" name="q7" value="B", style="height: 20px; width:20px;"> Marta Viera da Silva<br>
+                <input type="checkbox" name="q7" value="C", style="height: 20px; width:20px;">Lieke Martens	<br>
+                <input type="checkbox" name="q7" value="D", style="height: 20px; width:20px;"> Ada Hegerberg<br>
+                <input type="button" value="Next"  name ="Q.8" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.7" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.8">
+                <b>Q.8 Which of the following players have won UEFA Champions League at least once?
+    ?</b><br><br>
+                <input type="checkbox" name="q8" value="A", style="height: 20px; width:20px;" >Ronaldo Nazario<br>
+                <input type="checkbox" name="q8" value="B", style="height: 20px; width:20px;">  Genarro Gattuso<br>
+                <input type="checkbox" name="q8" value="C", style="height: 20px; width:20px;">Ole Gunnar Solskjær	<br>
+                <input type="checkbox" name="q8" value="D", style="height: 20px; width:20px;">Pavel Nedved <br>
+                <input type="button" value="Next"  name ="Q.9" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.8" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.9">
+                <b>Q.9 In 2014 World Cup, which of these players did not represent their country of birth?</b><br><br>
+                <input type="checkbox" name="q9" value="A", style="height: 20px; width:20px;" >Jerome Boateng<br>
+                <input type="checkbox" name="q9" value="B", style="height: 20px; width:20px;"> Gonzalo Higuain<br>
+                <input type="checkbox" name="q9" value="C", style="height: 20px; width:20px;">Diego Costa<br>
+                <input type="checkbox" name="q9" value="D", style="height: 20px; width:20px;">Thiago Alcântara<br>
+                <input type="button" value="Next"  name ="Q.10" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.9" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.10">
+                <b>Q.10 Player(s) to win back to back european treble (winning UEFA Champions League, Domestic League, Domestic Cup in the same year)?
+    </b><br><br>
+                <input type="checkbox" name="q10" value="A", style="height: 20px; width:20px;" > Lionel Messi<br>
+                <input type="checkbox" name="q10" value="B", style="height: 20px; width:20px;"> Peter Schmeichel<br>
+                <input type="checkbox" name="q10" value="C", style="height: 20px; width:20px;">Ronald Koeman<br>
+                <input type="checkbox" name="q10" value="D", style="height: 20px; width:20px;">Samuel Eto’o<br>
+                <input type="button" value="Next"  name ="Q.11" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.10" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.11">
+                <b>Q.11 Which team won Super Bowl LIII ?
+    </b><br><br>
+                <input type="checkbox" name="q11" value="A", style="height: 20px; width:20px;" > New England Patriots<br>
+                <input type="checkbox" name="q11" value="B", style="height: 20px; width:20px;"> Los Angeles Rams<br>
+                <input type="checkbox" name="q11" value="C", style="height: 20px; width:20px;">Philadelphia Eagles<br>
+                <input type="checkbox" name="q11" value="D", style="height: 20px; width:20px;">None of the above
+    <br>
+                <input type="button" value="Next"  name ="Q.12" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.11" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.12">
+                <b>Q.12 Which teams are not winner of NBA Championship 2019 ?
+    
+    </b><br><br>
+                <input type="checkbox" name="q12" value="A", style="height: 20px; width:20px;" >Golden State Warriors<br>
+                <input type="checkbox" name="q12" value="B", style="height: 20px; width:20px;">Toronto Raptors<br>
+                <input type="checkbox" name="q12" value="C", style="height: 20px; width:20px;">LA Galaxy<br>
+                <input type="checkbox" name="q12" value="D", style="height: 20px; width:20px;">Chicago Bulls<br>
+                <input type="button" value="Next"  name ="Q.13" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.12" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.13">
+                <b>Q.13 Which Countries have never hosted the Olympics?
+    </b><br><br>
+                <input type="checkbox" name="q13" value="A", style="height: 20px; width:20px;" >South Africa<br>
+                <input type="checkbox" name="q13" value="B", style="height: 20px; width:20px;">India<br>
+                <input type="checkbox" name="q13" value="C", style="height: 20px; width:20px;">Australia<br>
+                <input type="checkbox" name="q13" value="D", style="height: 20px; width:20px;">New Zealand<br>
+                <input type="button" value="Next"  name ="Q.14" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.13" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.14">
+                <b>Q.14 Which Countries have cricket as their national sport?
+    </b><br><br>
+                <input type="checkbox" name="q14" value="A", style="height: 20px; width:20px;" >England<br>
+                <input type="checkbox" name="q14" value="B", style="height: 20px; width:20px;">India<br>
+                <input type="checkbox" name="q14" value="C", style="height: 20px; width:20px;">Antigua and Barbuda<br>
+                <input type="checkbox" name="q14" value="D", style="height: 20px; width:20px;">Pakistan<br>
+                <input type="button" value="Next"  name ="Q.15" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.14" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.15">
+                <b>Q.15 Which of the Cricketers have scored more than 10000 ODI runs?</b><br><br>
+                <input type="checkbox" name="q15" value="A", style="height: 20px; width:20px;" >MS Dhoni<br>
+                <input type="checkbox" name="q15" value="B", style="height: 20px; width:20px;">Chris Gayle<br>
+                <input type="checkbox" name="q15" value="C", style="height: 20px; width:20px;">Virender Sehwag<br>
+                <input type="checkbox" name="q15" value="D", style="height: 20px; width:20px;">Rohit Sharma<br>
+                <input type="button" value="Next"  name ="Q.16" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.15" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.16">
+                <b>Q.16  Which of the Cricketers have scored more than 200 runs in an ODI ?</b><br><br>
+                <input type="checkbox" name="q16" value="A", style="height: 20px; width:20px;" > Virat Kohli<br>
+                <input type="checkbox" name="q16" value="B", style="height: 20px; width:20px;"> Fakhar Zaman<br>
+                <input type="checkbox" name="q16" value="C", style="height: 20px; width:20px;"> Chris Gayle<br>
+                <input type="checkbox" name="q16" value="D", style="height: 20px; width:20px;"> Martin Guptill<br>
+                <input type="button" value="Next"  name ="Q.17" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.16" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.17">
+                <b>Q.17 Which countries have never won a Summer Olympic medal, despite of participating atleast once ?</b><br><br>
+                <input type="checkbox" name="q17" value="A", style="height: 20px; width:20px;" > Bangladesh<br>
+                <input type="checkbox" name="q17" value="B", style="height: 20px; width:20px;"> Srilanka<br>
+                <input type="checkbox" name="q17" value="C", style="height: 20px; width:20px;"> Bhutan<br>
+                <input type="checkbox" name="q17" value="D", style="height: 20px; width:20px;"> Afghanistan<br>
+                <input type="button" value="Next"  name ="Q.18" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.17" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.18">
+                <b>Q.18 Which countries have won men’s hockey world cup more than once ?</b><br><br>
+                <input type="checkbox" name="q18" value="A", style="height: 20px; width:20px;" > India<br>
+                <input type="checkbox" name="q18" value="B", style="height: 20px; width:20px;"> Australia<br>
+                <input type="checkbox" name="q18" value="C", style="height: 20px; width:20px;"> Pakistan<br>
+                <input type="checkbox" name="q18" value="D", style="height: 20px; width:20px;"> Netherland<br>
+                <input type="button" value="Next"  name ="Q.19" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.18" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.19">
+                <b>Q.19 Which of the players have won men’s singles world tennis championship, more than 2 times ?</b><br><br>
+                <input type="checkbox" name="q19" value="A", style="height: 20px; width:20px;" > Andy Murray<br>
+                <input type="checkbox" name="q19" value="B", style="height: 20px; width:20px;"> Novak Djokovic<br>
+                <input type="checkbox" name="q19" value="C", style="height: 20px; width:20px;"> Rafael Nadal<br>
+                <input type="checkbox" name="q19" value="D", style="height: 20px; width:20px;"> Kevin Anderson<br>
+                <input type="button" value="Next"  name ="Q.20" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.19" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.20">
+                <b>Q.20 Which of the teams have won the IPL more than 3 times ?</b><br><br>
+                <input type="checkbox" name="q20" value="A", style="height: 20px; width:20px;" > Chennai Super Kings<br>
+                <input type="checkbox" name="q20" value="B", style="height: 20px; width:20px;"> Mumbai Indians<br>
+                <input type="checkbox" name="q20" value="C", style="height: 20px; width:20px;"> Kolkata Knight Riders<br>
+                <input type="checkbox" name="q20" value="D", style="height: 20px; width:20px;"> None of the Above<br>
+                <input type="button" value="Next"  name ="Q.21" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.20" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.21">
+                <b>Q.21  In which of the following games India has won a medal in Olympics?
+    ?</b><br><br>
+                <input type="checkbox" name="q21" value="A", style="height: 20px; width:20px;" > Wrestling
+    <br>
+                <input type="checkbox" name="q21" value="B", style="height: 20px; width:20px;">  Hockey
+    <br>
+                <input type="checkbox" name="q21" value="C", style="height: 20px; width:20px;"> Shooting
+    <br>
+                <input type="checkbox" name="q21" value="D", style="height: 20px; width:20px;"> Tennis
+    <br>
+                <input type="button" value="Next"  name ="Q.22" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.21" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.22">
+                <b>Q.22   Which of the following players represented Indian Cricket team at age less than 18 ?</b><br><br>
+                <input type="checkbox" name="q22" value="A", style="height: 20px; width:20px;" >  Harbhajan Singh<br>
+                <input type="checkbox" name="q22" value="B", style="height: 20px; width:20px;">  Yuvraj Singh<br>
+                <input type="checkbox" name="q22" value="C", style="height: 20px; width:20px;"> Parthiv Patel<br>
+                <input type="checkbox" name="q22" value="D", style="height: 20px; width:20px;"> Sachin Tendulkar<br>
+                <input type="button" value="Next"  name ="Q.23" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.22" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.23">
+                <b>Q.23  Which of the players are recipients of Rajiv Gandhi Khel Ratna Award?</b><br><br>
+                <input type="checkbox" name="q23" value="A", style="height: 20px; width:20px;" > Dhanraj Pillai<br>
+                <input type="checkbox" name="q23" value="B", style="height: 20px; width:20px;">  Sardara Singh<br>
+                <input type="checkbox" name="q23" value="C", style="height: 20px; width:20px;"> Sourav Ganguly<br>
+                <input type="checkbox" name="q23" value="D", style="height: 20px; width:20px;"> Virat Kohli
+    <br>
+                <input type="button" value="Next"  name ="Q.24" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.23" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.24">
+                <b>Q.24 Which of the following have been the coaches of Indian National Cricket team?</b><br><br>
+                <input type="checkbox" name="q24" value="A", style="height: 20px; width:20px;" > Kapil Dev<br>
+                <input type="checkbox" name="q24" value="B", style="height: 20px; width:20px;">  Sardara Singh<br>
+                <input type="checkbox" name="q24" value="C", style="height: 20px; width:20px;"> Sourav Ganguly<br>
+                <input type="checkbox" name="q24" value="D", style="height: 20px; width:20px;"> Sanjay Bangar<br>
+                <input type="button" value="Next"  name ="Q.25" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.24" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.25">
+                <b>Q.25  Which of the following players announced retirement in 2019?
+    ?</b><br><br>
+                <input type="checkbox" name="q25" value="A", style="height: 20px; width:20px;" > Gautam Gambhir<br>
+                <input type="checkbox" name="q25" value="B", style="height: 20px; width:20px;">  Yuvraj Singh<br>
+                <input type="checkbox" name="q25" value="C", style="height: 20px; width:20px;"> Ambati Rayudu<br>
+                <input type="checkbox" name="q25" value="D", style="height: 20px; width:20px;"> Harbhajan Singh<br>
+                <input type="button" value="Next"  name ="Q.26" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.25" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.26">
+                <b>Q.26 Which of the cities are famous for sports goods industry?
+    </b><br><br>
+                <input type="checkbox" name="q26" value="A", style="height: 20px; width:20px;" >Delhi<br>
+                <input type="checkbox" name="q26" value="B", style="height: 20px; width:20px;"> Meerut<br>
+                <input type="checkbox" name="q26" value="C
+    ", style="height: 20px; width:20px;"> Jalandhar<br>
+                <input type="checkbox" name="q26" value= "D
+    ", style="height: 20px; width:20px;"> Kanpur<br>
+                <input type="button" value="Next"  name ="Q.27" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.26" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.27">
+                <b>Q.27 MS Dhoni has played for which teams in whole IPL history, till time
+    ?</b><br><br>
+                <input type="checkbox" name="q27" value="A", style="height: 20px; width:20px;" > Pune Warriors India<br>
+                <input type="checkbox" name="q27" value=" B", style="height: 20px; width:20px;"> Rising Pune Supergiants
+    <br>
+                <input type="checkbox" name="q27" value="C
+    ", style="height: 20px; width:20px;">Chennai Super Kings<br>
+                <input type="checkbox" name="q27" value=" D
+    ",  style="height: 20px; width:20px;"> Kings XI Punjab<br>
+                <input type="button" value="Next"  name ="Q.28" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.27" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.28">
+                <b>Q.28 Famous cricketer ‘Dirk Nannes’ played for which team(s) in International Cricket
+    ?</b><br><br>
+                <input type="checkbox" name="q28" value="A
+    ", style="height: 20px; width:20px;" >Australia<br>
+                <input type="checkbox" name="q28" value="B
+    ", style="height: 20px; width:20px;">Netherlands<br>
+                <input type="checkbox" name="q28" value="C
+    ", style="height: 20px; width:20px;"> Ireland<br>
+                <input type="checkbox" name="q28" value="D
+    ", style="height: 20px; width:20px;"> Scotland<br>
+                <input type="button" value="Next"  name ="Q.29" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.28" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+     
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.29">
+                <b>Q.29  Who Indian among these have won an Olympic gold medal?</b><br><br>
+                <input type="checkbox" name="q29" value="A", style="height: 20px; width:20px;" >  Gagan Narang<br>
+                <input type="checkbox" name="q29" value="B", style="height: 20px; width:20px;">  Heena Sindhu
+    <br>
+                <input type="checkbox" name="q29" value="C", style="height: 20px; width:20px;"> Abhinav Bindra
+    <br>
+                <input type="checkbox" name="q29" value="D", style="height: 20px; width:20px;"> Sushil Kumar
+    <br>
+                <input type="button" value="Next"  name ="Q.30" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.29" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+     
+     
+     
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.30">
+                <b>Q.30 Who among these European clubs have won more than 5 Champions League?</b><br><br>
+                <input type="checkbox" name="q30" value="A", style="height: 20px; width:20px;" >   Real Madrid
+    <br>
+                <input type="checkbox" name="q30" value="B", style="height: 20px; width:20px;">   Barcelona
+    <br>
+                <input type="checkbox" name="q30" value="C", style="height: 20px; width:20px;">Liverpool
+    <br>
+                <input type="checkbox" name="q30" value="D", style="height: 20px; width:20px;"> Juventus
+    <br>
+                <input type="button" value="Next"  name ="Q.31" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.30" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+     
+     
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.31">
+                <b>Q.31 Which athlete among these has highest number of Instagram followers ?</b><br><br>
+                <input type="checkbox" name="q31" value="A", style="height: 20px; width:20px;" > Lionel Messi<br>
+                <input type="checkbox" name="q31" value="B", style="height: 20px; width:20px;"> Roger Federer
+    <br>
+                <input type="checkbox" name="q31" value="C", style="height: 20px; width:20px;">  Lebron James
+    <br>
+                <input type="checkbox" name="q31" value="D", style="height: 20px; width:20px;"> Cristiano Ronaldo<br>
+                <input type="button" value="Next"  name ="Q.32" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.31" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+     
+     
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.32">
+                <b>Q.32 Which of these goalkeepers have won the Golden Ball in Football World Cup ?</b><br><br>
+                <input type="checkbox" name="q32" value="A", style="height: 20px; width:20px;" >    Victor Valdes<br>
+                <input type="checkbox" name="q32" value="B", style="height: 20px; width:20px;"> Oliver Kahns<br>
+                <input type="checkbox" name="q32" value="C", style="height: 20px; width:20px;"> Manuel Neuerl<br>
+                <input type="checkbox" name="q32" value="D", style="height: 20px; width:20px;"> Hugo Llorisl<br>
+                <input type="button" value="Next"  name ="Q.33" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.32" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+     
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.33">
+                <b>Q.33 Who was the winner of Bharat Ratna Award in the year 2014 ?</b><br><br>
+                <input type="checkbox" name="q33" value="A", style="height: 20px; width:20px;" > Dr APJ Abdul Kalam
+    <br>
+                <input type="checkbox" name="q33" value="B", style="height: 20px; width:20px;"> Dr CNR Rao<br>
+                <input type="checkbox" name="q33" value="C", style="height: 20px; width:20px;"> Sachin Tendulka<br>
+                <input type="checkbox" name="q33" value="D", style="height: 20px; width:20px;">Rahul Dravid<br>
+                <input type="button" value="Next"  name ="Q.34" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.33" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+     
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.34">
+                <b>Q.34 Out of these players, select the winners of ‘career grand slam’. (Winning all grand slams in a calender year is known as ‘career grand slam’) ?</b><br><br>
+                <input type="checkbox" name="q34" value="A", style="height: 20px; width:20px;" >Andy Murray<br>
+                <input type="checkbox" name="q34" value="B", style="height: 20px; width:20px;">Rafael Nadal<br>
+                <input type="checkbox" name="q34" value="C", style="height: 20px; width:20px;">  Roger Federer
+    <br>
+                <input type="checkbox" name="q34" value="D", style="height: 20px; width:20px;">Novak Jdokovic<br>
+                <input type="button" value="Next"  name ="Q.35" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.34" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+     
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.35">
+                <b>Q.35 Which of these sportsperson received the distinguished Padma Vibhushan Award?</b><br><br>
+                <input type="checkbox" name="q35" value="A", style="height: 20px; width:20px;" >Vishwanathan Anand
+    <br>
+                <input type="checkbox" name="q35" value="B", style="height: 20px; width:20px;"> Tenzing Norgay
+    <br>
+                <input type="checkbox" name="q35" value="C", style="height: 20px; width:20px;"> Edmund Hillary<br>
+                <input type="checkbox" name="q35" value="D", style="height: 20px; width:20px;"> Dhyan Chand<br>
+                <input type="button" value="Next"  name ="Q.36" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.35" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+     
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.36">
+                <b>Q.36  Which of these players scored hundred and get a hat-trick in ipl?
+    </b><br><br>
+                <input type="checkbox" name="q36" value="A", style="height: 20px; width:20px;" > Virendra Sehwag<br>
+                <input type="checkbox" name="q36" value="B", style="height: 20px; width:20px;"> Shane Watson<br>
+                <input type="checkbox" name="q36" value="C", style="height: 20px; width:20px;"> Yusuf Pathan<br>
+                <input type="checkbox" name="q36" value="D", style="height: 20px; width:20px;"> Rohit Sharma<br>
+                <input type="button" value="Next"  name ="Q.37" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.36" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.37">
+                <b>Q.37  Which of the following players has a strike rate of over hundred(min. 2000 runs)?
+    </b><br><br>
+                <input type="checkbox" name="q37" value="A", style="height: 20px; width:20px;" > Jos Buttler<br>
+                <input type="checkbox" name="q37" value="B", style="height: 20px; width:20px;"> Shahid Afridi<br>
+                <input type="checkbox" name="q37" value="C", style="height: 20px; width:20px;"> Adam Gilchrist<br>
+                <input type="checkbox" name="q37" value="D", style="height: 20px; width:20px;"> Brendon McCullum<br>
+                <input type="button" value="Next"  name ="Q.38" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.37" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.38">
+                <b>Q.38 Which of the following terms is related to Golf?
+    </b><br><br>
+                <input type="checkbox" name="q38" value="A", style="height: 20px; width:20px;" > Eagle<br>
+                <input type="checkbox" name="q38" value="B", style="height: 20px; width:20px;"> Albatross<br>
+                <input type="checkbox" name="q38" value="C", style="height: 20px; width:20px;"> Bogey<br>
+                <input type="checkbox" name="q38" value="D", style="height: 20px; width:20px;"> Birdie<br>
+                <input type="button" value="Next"  name ="Q.39" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.38" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.39">
+                <b>Q.39 Which of the following position are related to volleyball?
+    </b><br><br>
+                <input type="checkbox" name="q39" value="A", style="height: 20px; width:20px;" > Spiker<br>
+                <input type="checkbox" name="q39" value="B", style="height: 20px; width:20px;">Libero<br>
+                <input type="checkbox" name="q39" value="C", style="height: 20px; width:20px;">Defender<br>
+                <input type="checkbox" name="q39" value="D", style="height: 20px; width:20px;"> Midfielder<br>
+                <input type="button" value="Next"  name ="Q.40" onclick="next(event)" style="margin-left:1%;float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+                <input type="button" value="Clear Response" name ="Q.39" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+    
+    
+    <!-- Multiple choice questions   -->
+            <div class="question hidden" id="Q.40">
+                <b>Q.40. What is the motto of Olympics 2020 ?</b><br><br>
+                <input type="checkbox" name="q40" value="A", style="height: 20px; width:20px;" >Play for fun<br>
+                <input type="checkbox" name="q40" value="B", style="height: 20px; width:20px;">Do and win<br>
+                <input type="checkbox" name="q40" value="C", style="height: 20px; width:20px;">Discover Tomorrow<br>
+                <input type="checkbox" name="q40" value="D", style="height: 20px; width:20px;"> None of these<br>
+                
+                <input type="button" value="Clear Response" name ="Q.40" onclick="clears(event)" style="float:right;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color: black;">
+            </div>
+    
+        <div class="qindex">
+            <input type="button" value="Q.1" onclick="Jumptoq(event)">
+            <input type="button" value="Q.2" onclick="Jumptoq(event)">
+            <input type="button" value="Q.3" onclick="Jumptoq(event)">
+            <input type="button" value="Q.4" onclick="Jumptoq(event)">
+            <input type="button" value="Q.5" onclick="Jumptoq(event)">
+            <input type="button" value="Q.6" onclick="Jumptoq(event)" >
+            <input type="button" value="Q.7" onclick="Jumptoq(event)">
+            <input type="button" value="Q.8" onclick="Jumptoq(event)">
+            <input type="button" value="Q.9" onclick="Jumptoq(event)">
+            <input type="button" value="Q.10" onclick="Jumptoq(event)">
+            <input type="button" value="Q.11" onclick="Jumptoq(event)">
+            <input type="button" value="Q.12" onclick="Jumptoq(event)">
+            <input type="button" value="Q.13" onclick="Jumptoq(event)">
+            <input type="button" value="Q.14" onclick="Jumptoq(event)">
+            <input type="button" value="Q.15" onclick="Jumptoq(event)">
+            <input type="button" value="Q.16" onclick="Jumptoq(event)">
+            <input type="button" value="Q.17" onclick="Jumptoq(event)">
+            <input type="button" value="Q.18" onclick="Jumptoq(event)">
+            <input type="button" value="Q.19" onclick="Jumptoq(event)">
+            <input type="button" value="Q.20" onclick="Jumptoq(event)">
+            <input type="button" value="Q.21" onclick="Jumptoq(event)">
+            <input type="button" value="Q.22" onclick="Jumptoq(event)">
+            <input type="button" value="Q.23" onclick="Jumptoq(event)">
+            <input type="button" value="Q.24" onclick="Jumptoq(event)">
+            <input type="button" value="Q.25" onclick="Jumptoq(event)">
+            <input type="button" value="Q.26" onclick="Jumptoq(event)">
+            <input type="button" value="Q.27" onclick="Jumptoq(event)">
+            <input type="button" value="Q.28" onclick="Jumptoq(event)">
+            <input type="button" value="Q.29" onclick="Jumptoq(event)">
+            <input type="button" value="Q.30" onclick="Jumptoq(event)">
+            <input type="button" value="Q.31" onclick="Jumptoq(event)">
+            <input type="button" value="Q.32" onclick="Jumptoq(event)">
+            <input type="button" value="Q.33" onclick="Jumptoq(event)">
+            <input type="button" value="Q.34" onclick="Jumptoq(event)">
+            <input type="button" value="Q.35" onclick="Jumptoq(event)">
+            <input type="button" value="Q.36" onclick="Jumptoq(event)" >
+            <input type="button" value="Q.37" onclick="Jumptoq(event)">
+            <input type="button" value="Q.38" onclick="Jumptoq(event)">
+            <input type="button" value="Q.39" onclick="Jumptoq(event)">
+            <input type="button" value="Q.40" onclick="Jumptoq(event)">
+
+        </div>
+        <div style="text-align: center;margin-top:3%"><input type="submit" value="Submit" style="margin-left:1%;text-align:center;align-self: center;border:none;border-radius: 5px;padding:1% 2%;font-size:71%;color:white;background-color:black;"></div>
+        
+    </form>
+</div>
+   
+</body>
+</html> 
