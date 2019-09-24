@@ -3120,13 +3120,21 @@
 	#banner {
 
 		/* background-color: #3498db; */
-		background-image: url('bk.jpg');
+		background-image: url('bk3.jpg'); 
 		background-repeat: none;
-		background-size:100%;
+		background-size: 100%;
 		color: rgba(255, 255, 255, 0.75);
 		text-align: center;
 		cursor: default;
 		padding: 10em 4em 9em 4em;
+	}
+
+	@media screen and (max-width: 736px) {
+
+		#banner {
+			background-size: 200%;
+		}
+
 	}
 
 		#banner input, #banner select, #banner textarea {
